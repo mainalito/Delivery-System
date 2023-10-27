@@ -28,6 +28,7 @@
   "require-dev": {
     "sjaakp/yii2-collapse": "*",
     "kartik-v/yii2-bootstrap4-dropdown": "@dev",
+    "borales/yii2-phone-input": "*",
     "kartik-v/yii2-widget-select2": "1.0.*",
     "kartik-v/yii2-widget-depdrop": "@dev",
     "yiisoft/yii2-debug": "~2.1.0",

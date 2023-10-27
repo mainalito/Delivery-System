@@ -71,14 +71,17 @@ class RiderRegistrationController extends Controller
         $model = new RiderRegistration();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'ID' => $model->ID]);
+            if ($model->load($this->request->post())) {
+                if ($model->validate() && $model->save()) {
+                    Yii::$app->session->setFlash(' success', ' Details have been successfully submitted for review.' );
+                    return $this->redirect(['site/index', 'ID' => $model->ID]);
+                }
             }
         } else {
             $model->loadDefaultValues();
         }
 
-        return $this->renderAjax('create', [
+        return $this->render('create', [
             'model' => $model,
         ]);
     }

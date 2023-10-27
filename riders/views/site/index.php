@@ -13,40 +13,40 @@ $this->title = 'Ecommerce';
 <!--</div>-->
 
 <div class="container" id="container">
-    <div class="form-container sign-up-container">
-        <form action="#">
-            <h1>Create Account</h1>
-            <span>or use your email for registration</span>
-            <input type="text" placeholder="Identification Number"/>
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="text" placeholder="First Name"/>
-                </div>
-                <div class="col-md-6">
-                    <input type="text" placeholder="Last Name"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="text" placeholder="Vehicle Type"/>
-                </div>
-                <div class="col-md-6">
-
-                    <input type="text" placeholder="Vehicle Registration"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="email" placeholder="Email"/>
-                </div>
-                <div class="col-md-6">
-
-                    <input type="number" placeholder="Phone"/>
-                </div>
-            </div>
-                <button>Sign Up</button>
-        </form>
-    </div>
+    <!--    <div class="form-container sign-up-container">-->
+    <!--        <form action="#">-->
+    <!--            <h1>Create Account</h1>-->
+    <!--            <span>or use your email for registration</span>-->
+    <!--            <input type="text" placeholder="Identification Number"/>-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-md-6">-->
+    <!--                    <input type="text" placeholder="First Name"/>-->
+    <!--                </div>-->
+    <!--                <div class="col-md-6">-->
+    <!--                    <input type="text" placeholder="Last Name"/>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-md-6">-->
+    <!--                    <input type="text" placeholder="Vehicle Type"/>-->
+    <!--                </div>-->
+    <!--                <div class="col-md-6">-->
+    <!---->
+    <!--                    <input type="text" placeholder="Vehicle Registration"/>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-md-6">-->
+    <!--                    <input type="email" placeholder="Email"/>-->
+    <!--                </div>-->
+    <!--                <div class="col-md-6">-->
+    <!---->
+    <!--                    <input type="number" placeholder="Phone"/>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--                <button>Sign Up</button>-->
+    <!--        </form>-->
+    <!--    </div>-->
     <div class="form-container sign-in-container">
         <form action="#">
             <h1>Login</h1>
@@ -56,27 +56,35 @@ $this->title = 'Ecommerce';
                 <i class="fa fa-eye" id="togglePassword"></i>
             </div>
             <a href="#">Forgot your password?</a>
-            <button>Login</button>
+            <div class="form-group">
+                <?= Html::button('Login', [
+                    'class' => 'ghosting',
+                    'id' => 'login',
+//                        'data-toggle' => 'modal',
+//                        'data-target' => '.ReviewModal',
+                    'data-url' => \yii\helpers\Url::to(['/rider-registration/view']),
+                ]) ?>
+            </div>
         </form>
 
     </div>
     <div class="overlay-container">
         <div class="overlay">
-            <div class="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>Keep connected and check on your orders due for delivery.</p>
-                <button class="ghost" id="signIn">Login</button>
-            </div>
+            <!--            <div class="overlay-panel overlay-left">-->
+            <!--                <h1>Welcome Back!</h1>-->
+            <!--                <p>Keep connected and check on your orders due for delivery.</p>-->
+            <!--                <button class="ghost" id="signIn">Login</button>-->
+            <!--            </div>-->
             <div class="overlay-panel overlay-right">
                 <h1>NEW?</h1>
                 <p>Enter your details and start journey with us</p>
-               <div class="form-group">
+                <div class="form-group">
                     <?= Html::button('Sign Up', [
                         'class' => 'ghost',
                         'id' => 'signUp',
-                        // 'data-toggle' => 'modal',
-                        // 'data-target' => '.ReviewModal',
-                        'data-url' => \yii\helpers\Url::to(['/rider-registration/index']),
+//                        'data-toggle' => 'modal',
+//                        'data-target' => '.ReviewModal',
+                        'data-url' => \yii\helpers\Url::to(['/rider-registration/create']),
                     ]) ?>
                 </div>
             </div>
@@ -107,12 +115,18 @@ $js = <<<JS
 
 $this->registerJs($js, \yii\web\View::POS_READY); ?>
 <script>
-    $(document).ready(function() {
-    $('#signUp').click(function() {
-        var url = $(this).data('url');
-        window.location.href = url; // redirecting to the specified URL
+    $(document).ready(function () {
+        $('#signUp').click(function () {
+            var url = $(this).data('url');
+            window.location.href = url; // redirecting to the specified URL
+        });
     });
-});
+    $(document).ready(function () {
+        $('#login').click(function () {
+            var url = $(this).data('url');
+            window.location.href = url; // redirecting to the specified URL
+        });
+    });
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
@@ -137,8 +151,8 @@ $this->registerJs($js, \yii\web\View::POS_READY); ?>
             path: animationPath // Required, the JSON path
         });
     });
-    $(document).ready(function() {
-        $("#togglePassword").click(function() {
+    $(document).ready(function () {
+        $("#togglePassword").click(function () {
             if ($("#passwordField").attr("type") === "password") {
                 $("#passwordField").attr("type", "text");
                 $(this).removeClass("fa-eye").addClass("fa-eye-slash");
@@ -150,12 +164,13 @@ $this->registerJs($js, \yii\web\View::POS_READY); ?>
     });
 </script>
 
- 
+
 <style>
-.review-modal-dialog {
+    .review-modal-dialog {
         max-width: 100% !important;
         max-height: 60%;
     }
+
     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
     * {
@@ -182,6 +197,10 @@ $this->registerJs($js, \yii\web\View::POS_READY); ?>
         text-align: center;
     }
 
+    h4 {
+        text-align: center;
+    }
+
     p {
         font-size: 14px;
         font-weight: 100;
@@ -189,6 +208,7 @@ $this->registerJs($js, \yii\web\View::POS_READY); ?>
         letter-spacing: 0.5px;
         margin: 20px 0 30px;
     }
+
     .password-wrapper {
         position: relative;
     }
@@ -240,6 +260,11 @@ $this->registerJs($js, \yii\web\View::POS_READY); ?>
 
     button.ghost {
         background-color: transparent;
+        border-color: #FFFFFF;
+    }
+
+    button.ghosting {
+        background-color: #FF4B2B;
         border-color: #FFFFFF;
     }
 
