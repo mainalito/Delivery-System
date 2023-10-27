@@ -11,7 +11,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'frontend\controllers',
+    'controllerNamespace' => 'riders\controllers',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',

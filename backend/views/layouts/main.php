@@ -68,6 +68,13 @@ AppAsset::register($this);
                     <span>Orders</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo \yii\helpers\Url::to(['/riders/']) ?>">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Riders</span>
+                </a>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
