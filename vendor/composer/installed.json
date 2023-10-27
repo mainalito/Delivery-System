@@ -67,6 +67,58 @@
             "install-path": "../behat/gherkin"
         },
         {
+            "name": "borales/yii2-phone-input",
+            "version": "0.3.0",
+            "version_normalized": "0.3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Borales/yii2-phone-input.git",
+                "reference": "563bfab9afed717422e1db848180c6dde706a907"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Borales/yii2-phone-input/zipball/563bfab9afed717422e1db848180c6dde706a907",
+                "reference": "563bfab9afed717422e1db848180c6dde706a907",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/intl-tel-input": "^16",
+                "giggsey/libphonenumber-for-php": "^8",
+                "yiisoft/yii2": ">=2.0.1"
+            },
+            "time": "2019-10-06T17:45:40+00:00",
+            "type": "yii2-extension",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "borales\\extensions\\phoneInput\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Borales (Alexandr Bordun)",
+                    "email": "bordun.alexandr@gmail.com"
+                }
+            ],
+            "description": "Yii2 International telephone numbers - Asset Bundle, Behavior, Validator, Widget",
+            "homepage": "https://github.com/Borales/yii2-phone-input",
+            "keywords": [
+                "international telephone numbers",
+                "intl-tel-input",
+                "libphonenumber",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/Borales/yii2-phone-input/issues?state=open",
+                "source": "https://github.com/Borales/yii2-phone-input"
+            },
+            "install-path": "../borales/yii2-phone-input"
+        },
+        {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
             "version_normalized": "3.4.1.0",
@@ -113,6 +165,24 @@
                 "http://opensource.org/licenses/mit-license.php"
             ],
             "install-path": "../bower-asset/inputmask"
+        },
+        {
+            "name": "bower-asset/intl-tel-input",
+            "version": "v16.1.0",
+            "version_normalized": "16.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jackocnr/intl-tel-input.git",
+                "reference": "52211bd88178f2cbed022b24d154ef980aef2878"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jackocnr/intl-tel-input/zipball/52211bd88178f2cbed022b24d154ef980aef2878",
+                "reference": "52211bd88178f2cbed022b24d154ef980aef2878"
+            },
+            "type": "bower-asset",
+            "installation-source": "dist",
+            "install-path": "../bower-asset/intl-tel-input"
         },
         {
             "name": "bower-asset/jquery",
@@ -1196,6 +1266,138 @@
                 "source": "https://github.com/FakerPHP/Faker/tree/v1.23.0"
             },
             "install-path": "../fakerphp/faker"
+        },
+        {
+            "name": "giggsey/libphonenumber-for-php",
+            "version": "8.13.23",
+            "version_normalized": "8.13.23.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giggsey/libphonenumber-for-php.git",
+                "reference": "b2dff83693cb46eb4478b193e9d94e2ff6258480"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/b2dff83693cb46eb4478b193e9d94e2ff6258480",
+                "reference": "b2dff83693cb46eb4478b193e9d94e2ff6258480",
+                "shasum": ""
+            },
+            "require": {
+                "giggsey/locale": "^1.7|^2.0",
+                "php": ">=5.3.2",
+                "symfony/polyfill-mbstring": "^1.17"
+            },
+            "require-dev": {
+                "pear/pear-core-minimal": "^1.9",
+                "pear/pear_exception": "^1.0",
+                "pear/versioncontrol_git": "^0.5",
+                "phing/phing": "^2.7",
+                "php-coveralls/php-coveralls": "^1.0|^2.0",
+                "symfony/console": "^2.8|^3.0|^v4.4|^v5.2",
+                "symfony/phpunit-bridge": "^4.2 || ^5"
+            },
+            "time": "2023-10-11T07:12:56+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "libphonenumber\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "/src/data/",
+                    "/src/carrier/data/",
+                    "/src/geocoding/data/",
+                    "/src/timezone/data/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Joshua Gigg",
+                    "email": "giggsey@gmail.com",
+                    "homepage": "https://giggsey.com/"
+                }
+            ],
+            "description": "PHP Port of Google's libphonenumber",
+            "homepage": "https://github.com/giggsey/libphonenumber-for-php",
+            "keywords": [
+                "geocoding",
+                "geolocation",
+                "libphonenumber",
+                "mobile",
+                "phonenumber",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
+                "source": "https://github.com/giggsey/libphonenumber-for-php"
+            },
+            "install-path": "../giggsey/libphonenumber-for-php"
+        },
+        {
+            "name": "giggsey/locale",
+            "version": "2.4",
+            "version_normalized": "2.4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giggsey/Locale.git",
+                "reference": "a6b33dfc9e8949b7e28133c4628b29cd9f1850bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/a6b33dfc9e8949b7e28133c4628b29cd9f1850bb",
+                "reference": "a6b33dfc9e8949b7e28133c4628b29cd9f1850bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "pear/pear-core-minimal": "^1.9",
+                "pear/pear_exception": "^1.0",
+                "pear/versioncontrol_git": "^0.5",
+                "phing/phing": "^2.7",
+                "php-coveralls/php-coveralls": "^2.0",
+                "phpunit/phpunit": "^8.5|^9.5",
+                "symfony/console": "^5.0|^6.0",
+                "symfony/filesystem": "^5.0|^6.0",
+                "symfony/finder": "^5.0|^6.0",
+                "symfony/process": "^5.0|^6.0"
+            },
+            "time": "2023-04-13T07:40:58+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Giggsey\\Locale\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joshua Gigg",
+                    "email": "giggsey@gmail.com",
+                    "homepage": "https://giggsey.com/"
+                }
+            ],
+            "description": "Locale functions required by libphonenumber-for-php",
+            "support": {
+                "issues": "https://github.com/giggsey/Locale/issues",
+                "source": "https://github.com/giggsey/Locale/tree/2.4"
+            },
+            "install-path": "../giggsey/locale"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -6302,7 +6504,9 @@
     "dev": true,
     "dev-package-names": [
         "behat/gherkin",
+        "borales/yii2-phone-input",
         "bower-asset/bootstrap",
+        "bower-asset/intl-tel-input",
         "codeception/codeception",
         "codeception/lib-asserts",
         "codeception/lib-innerbrowser",
@@ -6314,6 +6518,8 @@
         "codeception/verify",
         "doctrine/instantiator",
         "fakerphp/faker",
+        "giggsey/libphonenumber-for-php",
+        "giggsey/locale",
         "guzzlehttp/psr7",
         "kartik-v/dependent-dropdown",
         "kartik-v/yii2-bootstrap4-dropdown",

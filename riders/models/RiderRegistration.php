@@ -36,9 +36,13 @@ class RiderRegistration extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['IdentificationNumber', 'Vehicle', 'VehicleRegistration', 'PhoneNumber', 'FirstName', 'LastName', 'Email'], 'required'],
+            ['IdentificationNumber', 'unique', 'message' => 'This identification number has already been registered.'],
+            ['IdentificationNumber', 'number', 'message' => 'Identification Number must be a numeric value.'],
+            ['IdentificationNumber', 'string', 'length' => 8, 'tooShort' => 'Identification Number should contain exactly 8 characters.', 'tooLong' => 'Identification Number should contain exactly 8 characters.'],
             [['Vehicle', 'Status'], 'integer'],
             [['FirstName', 'LastName', 'Email'], 'string', 'max' => 100],
-            [['VehicleRegistration', 'PhoneNumber', 'IdentificationNumber'], 'string', 'max' => 50],
+            [['VehicleRegistration', 'PhoneNumber'], 'string', 'max' => 50],
             [['Vehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicle::class, 'targetAttribute' => ['Vehicle' => 'ID']],
             [['Status'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['Status' => 'ID']],
         ];

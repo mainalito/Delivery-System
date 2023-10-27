@@ -5,16 +5,17 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var riders\models\RiderRegistration $model */
 
-$this->title = 'Create Rider Registration';
-$this->params['breadcrumbs'][] = ['label' => 'Rider Registrations', 'url' => ['index']];
+$this->title = 'Rider Registration';
+$this->params['breadcrumbs'][] = ['label' => 'Rider Registrations', 'url' => ['site/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="rider-registration-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+<div class="card">
+    <div class="card-header" style="background: #FF416C; color: white; font-family: 'Montserrat', sans-serif;">
+        <h4><?= Html::encode($this->title) ?></h4>
+    </div>
+    <div class="card-body">
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+    </div>
 </div>
