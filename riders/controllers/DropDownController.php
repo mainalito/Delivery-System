@@ -1,8 +1,8 @@
 <?php
 
-namespace frontend\controllers;
+namespace riders\controllers;
 
-use frontend\models\SubCounties;
+use riders\models\SubCounties;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;

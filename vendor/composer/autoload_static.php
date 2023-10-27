@@ -41,6 +41,11 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
         array (
             'sjaakp\\collapse\\' => 16,
         ),
+        'r' => 
+        array (
+            'riders\\tests\\' => 13,
+            'riders\\' => 7,
+        ),
         'k' => 
         array (
             'kartik\\select2\\' => 15,
@@ -52,15 +57,19 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
         'f' => 
         array (
             'frontend\\tests\\' => 15,
+            'frontend\\' => 9,
         ),
         'c' => 
         array (
+            'console\\' => 8,
             'common\\tests\\' => 13,
+            'common\\' => 7,
             'cebe\\markdown\\' => 14,
         ),
         'b' => 
         array (
             'backend\\tests\\' => 14,
+            'backend\\' => 8,
         ),
         'S' => 
         array (
@@ -157,6 +166,15 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
         array (
             0 => __DIR__ . '/..' . '/sjaakp/yii2-collapse',
         ),
+        'riders\\tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/riders/tests',
+            1 => __DIR__ . '/../..' . '/riders/tests/_support',
+        ),
+        'riders\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/riders',
+        ),
         'kartik\\select2\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2',
@@ -182,10 +200,22 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
             0 => __DIR__ . '/../..' . '/frontend/tests',
             1 => __DIR__ . '/../..' . '/frontend/tests/_support',
         ),
+        'frontend\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/frontend',
+        ),
+        'console\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/console',
+        ),
         'common\\tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/common/tests',
             1 => __DIR__ . '/../..' . '/common/tests/_support',
+        ),
+        'common\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/common',
         ),
         'cebe\\markdown\\' => 
         array (
@@ -195,6 +225,10 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
         array (
             0 => __DIR__ . '/../..' . '/backend/tests',
             1 => __DIR__ . '/../..' . '/backend/tests/_support',
+        ),
+        'backend\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/backend',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (

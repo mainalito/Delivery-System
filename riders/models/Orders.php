@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace riders\models;
 
 use yii\behaviors\TimestampBehavior;
 

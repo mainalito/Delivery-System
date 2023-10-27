@@ -3,7 +3,7 @@
 /** @var View $this */
 /** @var string $content */
 
-use frontend\assets\AppAsset;
+use riders\assets\AppAsset;
 use yii\bootstrap4\Alert;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;

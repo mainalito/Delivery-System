@@ -1,9 +1,9 @@
 <?php
 
-namespace frontend\controllers;
+namespace riders\controllers;
 
-use frontend\models\Orders;
-use frontend\models\OrdersSearch;
+use riders\models\Orders;
+use riders\models\OrdersSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;

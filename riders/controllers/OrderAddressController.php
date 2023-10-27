@@ -1,12 +1,12 @@
 <?php
 
-namespace frontend\controllers;
+namespace riders\controllers;
 
-use frontend\models\CartItem;
-use frontend\models\OrderAddress;
-use frontend\models\Orders;
-use frontend\models\SubCounties;
-use frontend\models\UserAddress;
+use riders\models\CartItem;
+use riders\models\OrderAddress;
+use riders\models\Orders;
+use riders\models\SubCounties;
+use riders\models\UserAddress;
 use Yii;
 use yii\db\Expression;
 use yii\db\Query;

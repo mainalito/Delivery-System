@@ -1,17 +1,17 @@
 <?php
 
-namespace frontend\controllers;
+namespace riders\controllers;
 
 use common\models\LoginForm;
-use frontend\models\CartItem;
-use frontend\models\ContactForm;
-use frontend\models\Orders;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\Products;
-use frontend\models\ResendVerificationEmailForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\VerifyEmailForm;
+use riders\models\CartItem;
+use riders\models\ContactForm;
+use riders\models\Orders;
+use riders\models\PasswordResetRequestForm;
+use riders\models\Products;
+use riders\models\ResendVerificationEmailForm;
+use riders\models\ResetPasswordForm;
+use riders\models\SignupForm;
+use riders\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;

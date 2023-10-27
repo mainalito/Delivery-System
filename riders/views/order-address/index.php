@@ -1,13 +1,13 @@
 <?php
 
-use frontend\models\OrderAddress;
+use riders\models\OrderAddress;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
-/** @var frontend\models\OrderAddressSearch $searchModel */
+/** @var riders\models\OrderAddressSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Order Addresses';

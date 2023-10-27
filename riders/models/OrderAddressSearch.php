@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\models;
+namespace riders\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\OrderAddress;
+use riders\models\OrderAddress;
 
 /**
- * OrderAddressSearch represents the model behind the search form of `frontend\models\OrderAddress`.
+ * OrderAddressSearch represents the model behind the search form of `riders\models\OrderAddress`.
  */
 class OrderAddressSearch extends OrderAddress
 {

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var frontend\models\Orders $model */
+/** @var riders\models\Orders $model */
 
 $this->title = 'Update Orders: ' . $model->ID;
 $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];

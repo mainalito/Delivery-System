@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace riders\models;
 
 use common\models\User;
 use yii\base\InvalidArgumentException;

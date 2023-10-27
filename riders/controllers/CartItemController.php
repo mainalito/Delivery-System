@@ -1,10 +1,10 @@
 <?php
 
-namespace frontend\controllers;
+namespace riders\controllers;
 
-use frontend\models\CartItem;
-use frontend\models\Orders;
-use frontend\models\Products;
+use riders\models\CartItem;
+use riders\models\Orders;
+use riders\models\Products;
 use Yii;
 use yii\db\Expression;
 use yii\filters\ContentNegotiator;

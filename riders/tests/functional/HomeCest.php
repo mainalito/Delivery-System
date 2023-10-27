@@ -1,8 +1,8 @@
 <?php
 
-namespace frontend\tests\functional;
+namespace riders\tests\functional;
 
-use frontend\tests\FunctionalTester;
+use riders\tests\FunctionalTester;
 
 class HomeCest
 {

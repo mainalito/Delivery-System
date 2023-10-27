@@ -1,11 +1,11 @@
 <?php
 
-use frontend\models\CartItem;
+use riders\models\CartItem;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var frontend\models\OrderAddress $model */
-/** @var frontend\models\Orders $order */
+/** @var riders\models\OrderAddress $model */
+/** @var riders\models\Orders $order */
 
 $this->title = 'Create Order Address';
 $this->params['breadcrumbs'][] = ['label' => 'Order Addresses', 'url' => ['index']];

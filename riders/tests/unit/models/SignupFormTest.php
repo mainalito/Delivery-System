@@ -1,14 +1,14 @@
 <?php
 
-namespace frontend\tests\unit\models;
+namespace riders\tests\unit\models;
 
 use common\fixtures\UserFixture;
-use frontend\models\SignupForm;
+use riders\models\SignupForm;
 
 class SignupFormTest extends \Codeception\Test\Unit
 {
     /**
-     * @var \frontend\tests\UnitTester
+     * @var \riders\tests\UnitTester
      */
     protected $tester;
 

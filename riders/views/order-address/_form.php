@@ -7,11 +7,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var frontend\models\UserAddress $model */
+/** @var riders\models\UserAddress $model */
 $selectedCounty = $model->County;
 $subcounties = [];
 if ($selectedCounty) {
-    $subcounties = ArrayHelper::map(\frontend\models\Subcounties::find()->where(['CountyID' => $selectedCounty])->all(), 'ID', 'Name');
+    $subcounties = ArrayHelper::map(\riders\models\Subcounties::find()->where(['CountyID' => $selectedCounty])->all(), 'ID', 'Name');
 }
 
 ?>
@@ -27,7 +27,7 @@ if ($selectedCounty) {
                     <?php $form = ActiveForm::begin(); ?>
                     <?= $form->field($model, 'Address')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($model, 'County')->dropDownList(
-                        ArrayHelper::map(\frontend\models\Counties::find()->all(), 'ID', 'name'),
+                        ArrayHelper::map(\riders\models\Counties::find()->all(), 'ID', 'name'),
                         [
                             'prompt' => 'Select County',
                             'onchange' => new \yii\web\JsExpression('
