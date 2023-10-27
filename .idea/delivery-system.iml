@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/console" isTestSource="false" packagePrefix="console\" />
       <sourceFolder url="file://$MODULE_DIR$/frontend" isTestSource="false" packagePrefix="frontend\" />
       <sourceFolder url="file://$MODULE_DIR$/frontend/tests" isTestSource="true" packagePrefix="frontend\tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/frontend/web/assets/8144a74d/" isTestSource="false" packagePrefix="kartik\plugins\depdrop\" />
       <sourceFolder url="file://$MODULE_DIR$/riders" isTestSource="false" packagePrefix="riders\" />
       <sourceFolder url="file://$MODULE_DIR$/riders/tests" isTestSource="true" packagePrefix="riders\tests\" />
       <sourceFolder url="file://$MODULE_DIR$/riders/tests/_support" isTestSource="true" packagePrefix="riders\tests\" />
