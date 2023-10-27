@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92c3a247-2f6e-470f-9cc0-beea35df0aaf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeception.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeception.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/config/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders/views/rider-registration/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/views/rider-registration/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders/views/rider-registration/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/views/rider-registration/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/views/site/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +149,7 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2XAM7SoGVyJn4TOLQic5l7VNqan" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -188,11 +185,13 @@
       <workItem from="1698395001302" duration="569000" />
       <workItem from="1698395625270" duration="1100000" />
       <workItem from="1698396820205" duration="820000" />
-      <workItem from="1698405115063" duration="330000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
