@@ -68,14 +68,51 @@ $this->title = 'Ecommerce';
                 <button class="ghost" id="signIn">Login</button>
             </div>
             <div class="overlay-panel overlay-right">
-                <h1>Hello,</h1>
+                <h1>NEW?</h1>
                 <p>Enter your details and start journey with us</p>
-                <button class="ghost" id="signUp">Sign Up</button>
+               <div class="form-group">
+                    <?= Html::button('Sign Up', [
+                        'class' => 'ghost',
+                        'id' => 'signUp',
+                        // 'data-toggle' => 'modal',
+                        // 'data-target' => '.ReviewModal',
+                        'data-url' => \yii\helpers\Url::to(['/rider-registration/index']),
+                    ]) ?>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div id="ReviewModal" class="ReviewModal modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-dialog review-modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+$js = <<<JS
+                                                        $('button[data-target=".ReviewModal"]').on('click', function () {
+                                                            var url = $(this).data('url');
+                                                            $.get(url, function (data) {
+                                                                $('.ReviewModal .modal-body').html(data);
+                                                                 $('#ReviewModal').modal('show'); 
+                                                            });
+                                                        });
+                                                        JS;
+
+$this->registerJs($js, \yii\web\View::POS_READY); ?>
 <script>
+    $(document).ready(function() {
+    $('#signUp').click(function() {
+        var url = $(this).data('url');
+        window.location.href = url; // redirecting to the specified URL
+    });
+});
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
@@ -112,7 +149,13 @@ $this->title = 'Ecommerce';
         });
     });
 </script>
+
+ 
 <style>
+.review-modal-dialog {
+        max-width: 100% !important;
+        max-height: 60%;
+    }
     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
     * {

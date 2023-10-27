@@ -2,6 +2,7 @@
 
 namespace riders\controllers;
 
+use Yii;
 use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
 use yii\web\Controller;
@@ -77,7 +78,7 @@ class RiderRegistrationController extends Controller
             $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }
