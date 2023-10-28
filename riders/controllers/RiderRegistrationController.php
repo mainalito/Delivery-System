@@ -74,7 +74,7 @@ class RiderRegistrationController extends Controller
             if ($model->load($this->request->post())) {
                 if ($model->validate() && $model->save()) {
                     Yii::$app->session->setFlash(' success', ' Details have been successfully submitted for review.' );
-                    return $this->redirect(['site/index', 'ID' => $model->ID]);
+                    return $this->redirect(['/']);
                 }
             }
         } else {
