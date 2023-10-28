@@ -2,11 +2,13 @@
 
 namespace backend\controllers;
 
+use common\models\User;
 use frontend\models\Orders;
 use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -26,7 +28,6 @@ class RidersController extends Controller
     /**
      * Displays a single Products model.
      * @param int $ID ID
-     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($ID)
@@ -36,11 +37,13 @@ class RidersController extends Controller
             if ($model->load($this->request->post())) {
 
                 if ($model->save()) {
+
+                    $this->saveRider($model);
                     //send notification to rider
                     //create for him login details in user table
                     // set a default password based on firstname or lastname
                     //set firstname as username
-                    
+
                     Yii::$app->session->setFlash('success', 'Your details have been saved');
                     return $this->redirect(['view', 'ID' => $model->ID]);
                 }
@@ -52,13 +55,53 @@ class RidersController extends Controller
             'model' => $model,
         ]);
     }
+    private function saveRider($model)
+    {
+        // Check if the user exists
+        $user = User::findOne(['id' => $model->UserID]);
 
+        // If no user found and the model status is 1 (approved), create a new user
+        if (!$user && $model->Status == 1) {
+            $user = new User();
+            $user->generateAuthKey();
+            $user->generateEmailVerificationToken();
+
+            // Assign fields
+            $user->username = $model->FirstName;
+            $user->setPassword($model->LastName); // Use the setPassword method you have in your User model
+            $user->email = $model->Email;
+
+            // Validate and save the user
+            if (!$user->validate() || !$user->save()) {
+                // Handle validation errors
+                Yii::$app->session->setFlash('error', 'Failed to save User.');
+                return false;
+            }
+
+            $model->UserID = $user->id;
+            // If user account is created/exists, try to save the model
+            if (!$model->save()) {
+                // Handle error while saving the model
+                Yii::$app->session->setFlash('error', 'Failed to save Rider model.');
+                return false;
+            }
+        } elseif ($model->Status == 2) {
+            // If status is 2, don't create an account and return early
+            return false;
+        }
+
+
+
+        // Send notification to rider logic here
+        // E.g., using Yii2's mailer component to send an email
+        return true;
+    }
 
     /**
      * Finds the Products model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $ID ID
-     * @return Products the loaded model
+     * @return RiderRegistration the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($ID)
