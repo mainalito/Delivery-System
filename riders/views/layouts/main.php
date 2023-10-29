@@ -22,49 +22,44 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<!--<header>-->
-<!--    --><?php
-//    NavBar::begin([
-//        'brandLabel' => Yii::$app->name,
-//        'brandUrl' => Yii::$app->homeUrl,
-//        'options' => [
-//            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-//        ],
-//    ]);
-//    $menuItems = [
-//        ['label' => 'Home', 'url' => ['/site/index']],
-//    ];
-//    if (Yii::$app->user->isGuest) {
-//        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-//    }
-//
-//    echo Nav::widget([
-//        'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
-//        'items' => $menuItems,
-//    ]);
-//    if (Yii::$app->user->isGuest) {
-//        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
-//    } else {
-//        echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
-//            . Html::submitButton(
-//                'Logout (' . Yii::$app->user->identity->username . ')',
-//                ['class' => 'btn btn-link logout text-decoration-none']
-//            )
-//            . Html::endForm();
-//    }
-//    NavBar::end();
-//    ?>
-<!---->
-<!--</header>-->
+<header>
+ <?php
+    NavBar::begin([
+        'brandLabel' => Yii::$app->name,
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
+        ],
+    ]);
+    $menuItems = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+    ];
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/login']];
+    }
+
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
+        'items' => $menuItems,
+    ]);
+    if (Yii::$app->user->isGuest) {
+        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
+    } else {
+        echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout text-decoration-none']
+            )
+            . Html::endForm();
+    }
+    NavBar::end();
+    ?>
 
 <main role="main" class="flex-shrink-0">
     <div class="container">
@@ -78,7 +73,7 @@ AppAsset::register($this);
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
         <p class="float-start">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-end">Powered by Thufu and Chalo</p>
+        <p class="float-end">Powered by Thufu and Chalito</p>
     </div>
 </footer>
 

@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var riders\models\RiderRegistration $model */
 /** @var yii\widgets\ActiveForm $form */
+
 ?>
 
 <div class="rider-registration-form">

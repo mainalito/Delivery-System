@@ -7,7 +7,7 @@ $params = array_merge(
 );
 
 return [
-    'name'=>'Delivery Tracker',
+    'name' => 'Rider Application',
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -46,7 +46,11 @@ return [
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 // ... you can add more rules as needed ...
-            ]],
+            ]
+        ],
+        'assetManager' => [
+            'appendTimestamp' => true
+        ]
     ],
     'params' => $params,
 ];

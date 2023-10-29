@@ -1,26 +1,31 @@
 <?php
 
-/* @var $this \yii\web\View */
+/** @var View $this */
 
-/* @var $content string */
+use yii\web\View;
+
+/** @var string $content */
 
 use backend\assets\AppAsset;
+use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Html;
 
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
-    <!DOCTYPE html>
-    <html lang="<?= Yii::$app->language ?>">
-    <head>
-        <meta charset="<?= Yii::$app->charset ?>">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <?php $this->registerCsrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
-        <?php $this->head() ?>
-    </head>
-    <body id="page-top">
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php $this->registerCsrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+</head>
+
+<body id="page-top">
     <?php $this->beginBody() ?>
 
 
@@ -107,17 +112,14 @@ AppAsset::register($this);
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                <?php echo Yii::$app->user->identity->username ?>
-                            </span>
-                                <img class="img-profile rounded-circle"
-                                     src="/img/undraw_profile.svg">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    <?php echo Yii::$app->user->identity->username ?>
+                                </span>
+                                <img class="img-profile rounded-circle" src="/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
@@ -138,6 +140,14 @@ AppAsset::register($this);
 
                 </nav>
                 <!-- End of Topbar -->
+                <!-- Breadcrumbs -->
+                <div class="container-fluid">
+                    <?= Breadcrumbs::widget([
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    ]) ?>
+                </div>
+                <!-- End of Breadcrumbs -->
+
 
                 <div class="p-4">
                     <?php echo $content ?>
@@ -154,8 +164,8 @@ AppAsset::register($this);
                             &copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?>
                         </div>
 
-                        <div class="col text-right">
-                            Created by <a href="https://youtube.com/TheCodeholic" target="_blank">TheCodeholic</a>
+                        <div class="col text-center">
+                            Created by <a href="#" target="_blank">Thufu & Chalito</a>
                         </div>
                     </div>
                 </div>
@@ -174,8 +184,7 @@ AppAsset::register($this);
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -187,9 +196,7 @@ AppAsset::register($this);
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a data-method="post"
-                       class="btn btn-primary"
-                       href="<?php echo \yii\helpers\Url::to(['/site/logout']) ?>">Logout</a>
+                    <a data-method="post" class="btn btn-primary" href="<?php echo \yii\helpers\Url::to(['/site/logout']) ?>">Logout</a>
                 </div>
             </div>
         </div>
@@ -197,6 +204,7 @@ AppAsset::register($this);
 
     <?php $this->endBody() ?>
     <?php echo $this->blocks['bodyEndScript'] ?? '' ?>
-    </body>
-    </html>
+</body>
+
+</html>
 <?php $this->endPage() ?>

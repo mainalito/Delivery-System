@@ -55,29 +55,33 @@ class RidersController extends Controller
             'model' => $model,
         ]);
     }
-    private function saveRider($model)
-    {
+    private function saveRider($model) {
         // Check if the user exists
         $user = User::findOne(['id' => $model->UserID]);
-
+    
         // If no user found and the model status is 1 (approved), create a new user
         if (!$user && $model->Status == 1) {
             $user = new User();
             $user->generateAuthKey();
             $user->generateEmailVerificationToken();
-
-            // Assign fields
-            $user->username = $model->FirstName;
+    
+            // Assign fields with unique username logic
+            $user->username = $model->FirstName . '_' . $this->generateRandomString();
+    
+            while (!$user->validate(['username'])) {
+                $user->username = $model->FirstName . '_' . $this->generateRandomString();
+            }
+    
             $user->setPassword($model->LastName); // Use the setPassword method you have in your User model
             $user->email = $model->Email;
-
+    
             // Validate and save the user
-            if (!$user->validate() || !$user->save()) {
+            if (!$user->save()) {
                 // Handle validation errors
                 Yii::$app->session->setFlash('error', 'Failed to save User.');
                 return false;
             }
-
+    
             $model->UserID = $user->id;
             // If user account is created/exists, try to save the model
             if (!$model->save()) {
@@ -89,9 +93,7 @@ class RidersController extends Controller
             // If status is 2, don't create an account and return early
             return false;
         }
-
-
-
+    
         // Send notification to rider logic here
         // E.g., using Yii2's mailer component to send an email
         return true;
@@ -112,4 +114,14 @@ class RidersController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    private function generateRandomString($length = 4) {
+        $characters = 'abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+    
 }

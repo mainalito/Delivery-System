@@ -33,10 +33,10 @@ Pjax::begin(); ?>
             'label' => 'Action',
             'format' => 'raw',
             'value' => function ($model) {
-                return Html::a("View Order", ['/orders/view', 'id' => $model->ID]);
-
+                return Html::a("View Order", ['/orders/view', 'id' => $model->ID], ['class' => 'btn btn-primary']);
             }
         ]
+        
 
 
     ],

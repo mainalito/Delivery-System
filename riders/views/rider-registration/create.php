@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /** @var riders\models\RiderRegistration $model */
 
 $this->title = 'Rider Registration';
-$this->params['breadcrumbs'][] = ['label' => 'Rider Registrations', 'url' => ['site/index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Rider Registrations', 'url' => ['site/index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card">
     <div class="card-header" style="background: #FF416C; color: white; font-family: 'Montserrat', sans-serif;">
