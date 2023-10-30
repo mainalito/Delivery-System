@@ -2,6 +2,7 @@
 
 namespace riders\controllers;
 
+use common\models\User;
 use Yii;
 use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
@@ -93,16 +94,17 @@ class RiderRegistrationController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($ID)
+    public function actionUpdate($UserID)
     {
-        $model = $this->findModel($ID);
+        $model = $this->findUser($UserID);
+        $user = User::find()->where(['id'=> $UserID])->one();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'ID' => $model->ID]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model,'user'=>$user
         ]);
     }
 
@@ -130,6 +132,14 @@ class RiderRegistrationController extends Controller
     protected function findModel($ID)
     {
         if (($model = RiderRegistration::findOne(['ID' => $ID])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    protected function findUser($UserID)
+    {
+        if (($model = RiderRegistration::findOne(['UserID' => isCurrentUser()])) !== null) {
             return $model;
         }
 
