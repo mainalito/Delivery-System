@@ -72,7 +72,7 @@ class RidersController extends Controller
                 $user->username = $model->FirstName . '_' . $this->generateRandomString();
             }
     
-            $user->setPassword($model->LastName); // Use the setPassword method you have in your User model
+            $user->setPassword(strtolower($model->LastName)); // Use the setPassword method you have in your User model
             $user->email = $model->Email;
     
             // Validate and save the user
