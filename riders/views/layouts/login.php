@@ -6,6 +6,7 @@ use yii\web\View;
 /** @var string $content */
 
 use yii\helpers\Html;
+\riders\assets\RiderAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

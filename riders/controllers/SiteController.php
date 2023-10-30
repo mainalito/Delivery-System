@@ -98,6 +98,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (!isCurrentUser()){
+            return $this->redirect(['login']);
+        }
         $products = Products::find()->all();
         return $this->render('index', ['products' => $products]);
     }
