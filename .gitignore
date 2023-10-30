@@ -6,3 +6,7 @@ protected/data/*.db
 themes/classic/views/
 .idea/
 .idea/codeception.xml
+.idea/workspace.xml
+.idea/delivery-system.iml
+.idea/php.xml
+
