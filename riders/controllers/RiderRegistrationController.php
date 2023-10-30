@@ -69,6 +69,8 @@ class RiderRegistrationController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = 'login';
+
         $model = new RiderRegistration();
 
         if ($this->request->isPost) {
