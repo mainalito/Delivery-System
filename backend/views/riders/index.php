@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'IdentificationNumber',
-            ['label' => 'Customer Name', 'value' => function ($model) {
+            ['label' => 'Rider Full Name', 'value' => function ($model) {
                 return $model->FirstName . ' ' . $model->LastName;
             }],
             ['label'=>'Vehicle','value'=>function ($model){

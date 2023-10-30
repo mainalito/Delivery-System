@@ -36,6 +36,7 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
             'yii\\bootstrap\\' => 14,
             'yii\\bootstrap4\\' => 15,
             'yii\\' => 4,
+            'yidas\\yii\\fontawesome\\' => 22,
         ),
         's' => 
         array (
@@ -167,6 +168,10 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
         'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
+        ),
+        'yidas\\yii\\fontawesome\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yidas/yii2-fontawesome/src',
         ),
         'sjaakp\\collapse\\' => 
         array (
