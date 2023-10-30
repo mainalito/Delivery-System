@@ -62,7 +62,7 @@ $this->title = 'Ecommerce';
                     'id' => 'login',
 //                        'data-toggle' => 'modal',
 //                        'data-target' => '.ReviewModal',
-                    'data-url' => \yii\helpers\Url::to(['/rider-registration/view']),
+                    'data-url' => \yii\helpers\Url::to(['/rider-registration/index']),
                 ]) ?>
             </div>
         </form>
