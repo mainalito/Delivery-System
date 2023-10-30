@@ -6,6 +6,8 @@ use frontend\models\CartItem;
 use frontend\models\Orders;
 use frontend\models\Products;
 use frontend\models\UserAddress;
+use riders\models\RiderRegistration;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 use yii\web\Controller;
@@ -45,11 +47,19 @@ class OrdersController extends Controller
             ->where(['c.order_id' => $order->ID])
             ->asArray()
             ->all();
+        if ($order->load(Yii::$app->request->post())) {
+            $order->DateAssigned = date('Y-m-d H:i:s');
+            if ($order->save(false)) {
+                Yii::$app->session->setFlash('success', ' Rider Assigned Successfully.', true);
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+        }
         $totalSum = CartItem::getTotalCount($order->ID);
         $model = UserAddress::find()->where(['UserID' => $order->user_id])->one();
-        return $this->render('view', ['cartItems' => $cartItems, 'totalSum' => $totalSum,
-            'model' => $model
+        $riderAssigned = RiderRegistration::find()->where(['ID' => $order->Rider])->one();
+        return $this->render('view', [
+            'cartItems' => $cartItems, 'totalSum' => $totalSum,
+            'model' => $model, 'order' => $order, 'riderAssigned' => $riderAssigned
         ]);
     }
-
 }

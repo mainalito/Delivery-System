@@ -105,7 +105,7 @@ class RiderRegistrationController extends Controller
             return $this->redirect(['view', 'ID' => $model->ID]);
         }
 
-        return $this->render('update', [
+        return $this->renderAjax('update', [
             'model' => $model,'user'=>$user
         ]);
     }
@@ -122,6 +122,12 @@ class RiderRegistrationController extends Controller
         $this->findModel($ID)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionReviewOrder($id)
+    {
+        $id = base64_decode($id);
+        
     }
 
     /**
