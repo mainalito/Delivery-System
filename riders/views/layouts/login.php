@@ -7,7 +7,7 @@ use yii\web\View;
 
 use yii\helpers\Html;
 ?>
-
+<?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -25,6 +25,8 @@ use yii\helpers\Html;
 </div>
 
 <?php $this->endBody() ?>
+<?php echo $this->blocks['bodyEndScript'] ?? '' ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>
