@@ -55,9 +55,10 @@ class RidersController extends Controller
             'model' => $model,
         ]);
     }
-    private function saveRider($model) {
+    private function saveRider(RiderRegistration $model) {
         // Check if the user exists
         $user = User::findOne(['id' => $model->UserID]);
+        $this->sendEmail($user);
     
         // If no user found and the model status is 1 (approved), create a new user
         if (!$user && $model->Status == 1) {
@@ -89,6 +90,7 @@ class RidersController extends Controller
                 Yii::$app->session->setFlash('error', 'Failed to save Rider model.');
                 return false;
             }
+          
         } elseif ($model->Status == 2) {
             // If status is 2, don't create an account and return early
             return false;
@@ -97,6 +99,20 @@ class RidersController extends Controller
         // Send notification to rider logic here
         // E.g., using Yii2's mailer component to send an email
         return true;
+    }
+    protected function sendEmail(User $user)
+    {
+       return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['user' => $user]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setTo($user->email)
+            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->send();
+            // VarDumper::dump($response,10,true);exit;
     }
 
     /**
