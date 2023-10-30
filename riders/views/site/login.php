@@ -1,42 +1,106 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var yii\bootstrap4\ActiveForm $form */
-/** @var LoginForm $model */
 
-use common\models\LoginForm;
-use yii\bootstrap4\Html;
+use riders\assets\RiderAsset;
+
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Ecommerce';
+RiderAsset::register($this);
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<!--<div style="display: flex; justify-content: center; align-items: center; height: 20vh;">-->
+<!--    <div id="lottie-animation-1" style="width: 1000px; height: 200px;"></div>-->
+<!--</div>-->
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+<div class="sub-container" id="sub-container">
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    <div class="form-container sign-in-container">
+        <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+        <h1>Login</h1>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+        <div class="password-wrapper">
+            <?= $form->field($model, 'password')->passwordInput(['id' => 'passwordField']) ?>
+            <i class="fa fa-eye" id="togglePassword"></i>
+        </div>
+        <a href="#">Forgot your password?</a>
+        <div class="form-group">
+            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
 
-                <div class="my-1 mx-0" style="color:#999;">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                    <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
-                </div>
+        </div>
+        <?php ActiveForm::end(); ?>
 
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <!--            <div class="overlay-panel overlay-left">-->
+            <!--                <h1>Welcome Back!</h1>-->
+            <!--                <p>Keep connected and check on your orders due for delivery.</p>-->
+            <!--                <button class="ghost" id="signIn">Login</button>-->
+            <!--            </div>-->
+            <div class="overlay-panel overlay-right">
+                <h1>NEW?</h1>
+                <p>Enter your details and start journey with us</p>
                 <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
+                    <?= Html::button('Sign Up', [
+                        'class' => 'ghost',
+                        'id' => 'signUp',
+                        'data-url' => Url::to(['/rider-registration/create']),
+                    ]) ?>
 
-            <?php ActiveForm::end(); ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<div id="ReviewModal" class="ReviewModal modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-dialog review-modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+    $('#signUp').click(function() {
+    
+        var url = $(this).data('url');
+        console.log(url)
+        window.location.href = url; // redirecting to the specified URL
+    });
+
+    // No need for another listener for #login as you haven't provided its use.
+
+    // Removed the pure JS event listeners for #signUp and #signIn to avoid conflicts
+
+    // Lottie animation init remains as it is
+    var animationPath = '/images/DeliveryGuy.json'; // make sure this path is correct
+    var animation1 = lottie.loadAnimation({
+        container: document.getElementById('lottie-animation-1'), // Required
+        renderer: 'svg', // Required
+        loop: true, // Optional
+        autoplay: true, // Optional
+        path: animationPath // Required
+    });
+
+    // Password visibility toggle
+    $("#togglePassword").click(function() {
+        if ($("#passwordField").attr("type") === "password") {
+            $("#passwordField").attr("type", "text");
+            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+        } else {
+            $("#passwordField").attr("type", "password");
+            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+    });
+});
+
+</script>

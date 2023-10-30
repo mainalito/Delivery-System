@@ -4,18 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92c3a247-2f6e-470f-9cc0-beea35df0aaf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeception.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeception.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/views/layouts/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders/views/rider-registration/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/views/rider-registration/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/views/site/index.php" afterDir="false" />
-    </list>
+    <list default="true" id="92c3a247-2f6e-470f-9cc0-beea35df0aaf" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/frontend/web/assets/8144a74d/composer.json" />
+      <option value="$PROJECT_DIR$/frontend/web/assets/15ab0ec9/composer.json" />
+      <option value="$PROJECT_DIR$/frontend/web/assets/fb23c3e0/composer.json" />
+    </option>
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
@@ -148,16 +148,17 @@
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/js" />
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/metadata" />
       <path value="$PROJECT_DIR$/vendor/fontawesome-free/webfonts" />
-      <path value="$PROJECT_DIR$/vendor/borales/yii2-phone-input" />
       <path value="$PROJECT_DIR$/vendor/giggsey/locale" />
       <path value="$PROJECT_DIR$/vendor/giggsey/libphonenumber-for-php" />
       <path value="$PROJECT_DIR$/vendor/bower-asset/intl-tel-input" />
+      <path value="$PROJECT_DIR$/vendor/borales/yii2-phone-input" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2XAM7SoGVyJn4TOLQic5l7VNqan" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -193,12 +194,14 @@
       <workItem from="1698395001302" duration="569000" />
       <workItem from="1698395625270" duration="1100000" />
       <workItem from="1698396820205" duration="820000" />
-      <workItem from="1698405115063" duration="8387000" />
-      <workItem from="1698481573827" duration="5471000" />
+      <workItem from="1698406101938" duration="2525000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

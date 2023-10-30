@@ -1,9 +1,10 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
+/** @var yii\bootstrap4\ActiveForm $form */
 /** @var \riders\models\SignupForm $model */
 
+use riders\assets\RiderAssetReg;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 

@@ -46,7 +46,11 @@ return [
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 // ... you can add more rules as needed ...
-            ]],
+            ]
+        ],
+        'assetManager' => [
+            'appendTimestamp' => true
+        ]
     ],
     'params' => $params,
 ];

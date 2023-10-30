@@ -2,6 +2,7 @@
 
 namespace riders\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -16,6 +17,7 @@ use Yii;
  * @property string|null $PhoneNumber
  * @property string|null $IdentificationNumber
  * @property int|null $Status
+ * @property int|null $UserID
  *
  * @property Status $status
  * @property Vehicle $vehicle
@@ -40,7 +42,7 @@ class RiderRegistration extends \yii\db\ActiveRecord
             ['IdentificationNumber', 'unique', 'message' => 'This identification number has already been registered.'],
             ['IdentificationNumber', 'number', 'message' => 'Identification Number must be a numeric value.'],
             ['IdentificationNumber', 'string', 'length' => 8, 'tooShort' => 'Identification Number should contain exactly 8 characters.', 'tooLong' => 'Identification Number should contain exactly 8 characters.'],
-            [['Vehicle', 'Status'], 'integer'],
+            [['Vehicle', 'Status', 'UserID'], 'integer'],
             [['FirstName', 'LastName', 'Email'], 'string', 'max' => 100],
             [['VehicleRegistration', 'PhoneNumber'], 'string', 'max' => 50],
             [['Vehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicle::class, 'targetAttribute' => ['Vehicle' => 'ID']],
@@ -66,6 +68,7 @@ class RiderRegistration extends \yii\db\ActiveRecord
         ];
     }
 
+
     /**
      * Gets query for [[Status]].
      *
@@ -74,6 +77,10 @@ class RiderRegistration extends \yii\db\ActiveRecord
     public function getStatus()
     {
         return $this->hasOne(Status::class, ['ID' => 'Status']);
+    }
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['ID' => 'UserID']);
     }
 
     /**

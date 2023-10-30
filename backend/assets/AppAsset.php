@@ -25,9 +25,10 @@ class AppAsset extends AssetBundle
         "js/sb-admin-2.min.js",
     ];
     public $depends = [
+        JqueryAsset::class,
+
         'yii\web\YiiAsset',
         'yii\bootstrap4\BootstrapAsset',
-        JqueryAsset::class,
-        BootstrapPluginAsset::class
+    
     ];
 }

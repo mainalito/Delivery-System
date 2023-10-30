@@ -7,6 +7,7 @@ use common\models\User;
 use frontend\models\CartItem;
 use frontend\models\Orders;
 use frontend\models\Products;
+use riders\models\RiderRegistration;
 use Yii;
 use yii\db\Expression;
 use yii\filters\AccessControl;
@@ -88,10 +89,11 @@ class SiteController extends Controller
             ->sum(new Expression('c.quantity'));
         $totalOrders = count($confirmedOrderIds);
         $totalUsers = User::find()->count();
+        $totalRiders = RiderRegistration::find()->where(['not', ['UserID' => null]])->count();
 
 
         return $this->render('index', ['totalEarnings' => $totalEarnings,
-            'totalProducts' => $totalProducts, 'totalOrders' => $totalOrders, 'totalUsers' => $totalUsers]);
+            'totalProducts' => $totalProducts, 'totalOrders' => $totalOrders, 'totalUsers' => $totalUsers,'totalRiders'=>$totalRiders]);
     }
 
 

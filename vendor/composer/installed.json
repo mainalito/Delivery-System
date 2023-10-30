@@ -1268,6 +1268,61 @@
             "install-path": "../fakerphp/faker"
         },
         {
+            "name": "fortawesome/font-awesome",
+            "version": "v4.7.0",
+            "version_normalized": "4.7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "a8386aae19e200ddb0f6845b5feeee5eb7013687"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/a8386aae19e200ddb0f6845b5feeee5eb7013687",
+                "reference": "a8386aae19e200ddb0f6845b5feeee5eb7013687",
+                "shasum": ""
+            },
+            "require-dev": {
+                "jekyll": "1.0.2",
+                "lessc": "1.4.2"
+            },
+            "time": "2016-10-24T15:52:54+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.6.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Gandy",
+                    "email": "dave@fontawesome.io",
+                    "homepage": "http://twitter.com/davegandy",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The iconic font and CSS framework",
+            "homepage": "http://fontawesome.io/",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon"
+            ],
+            "support": {
+                "issues": "https://github.com/FortAwesome/Font-Awesome/issues",
+                "source": "https://github.com/FortAwesome/Font-Awesome/tree/v4.7.0"
+            },
+            "install-path": "../fortawesome/font-awesome"
+        },
+        {
             "name": "giggsey/libphonenumber-for-php",
             "version": "8.13.23",
             "version_normalized": "8.13.23.0",
@@ -5621,17 +5676,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v5.4.23",
-            "version_normalized": "5.4.23.0",
+            "version": "v5.4.30",
+            "version_normalized": "5.4.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "4cd2e3ea301aadd76a4172756296fe552fb45b0b"
+                "reference": "c6980e82a6656f6ebfabfd82f7585794cb122554"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/4cd2e3ea301aadd76a4172756296fe552fb45b0b",
-                "reference": "4cd2e3ea301aadd76a4172756296fe552fb45b0b",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/c6980e82a6656f6ebfabfd82f7585794cb122554",
+                "reference": "c6980e82a6656f6ebfabfd82f7585794cb122554",
                 "shasum": ""
             },
             "require": {
@@ -5648,7 +5703,7 @@
             "suggest": {
                 "symfony/console": "For validating YAML files using the lint command"
             },
-            "time": "2023-04-23T19:33:36+00:00",
+            "time": "2023-10-27T18:36:14+00:00",
             "bin": [
                 "Resources/bin/yaml-lint"
             ],
@@ -5679,7 +5734,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v5.4.23"
+                "source": "https://github.com/symfony/yaml/tree/v5.4.30"
             },
             "funding": [
                 {
@@ -5749,6 +5804,58 @@
                 }
             ],
             "install-path": "../theseer/tokenizer"
+        },
+        {
+            "name": "yidas/yii2-fontawesome",
+            "version": "2.0.0",
+            "version_normalized": "2.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yidas/yii2-fontawesome.git",
+                "reference": "da4fc4e6c71c07bc8da38a76858247e7c8f2512a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yidas/yii2-fontawesome/zipball/da4fc4e6c71c07bc8da38a76858247e7c8f2512a",
+                "reference": "da4fc4e6c71c07bc8da38a76858247e7c8f2512a",
+                "shasum": ""
+            },
+            "require": {
+                "fortawesome/font-awesome": "~4.7",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "time": "2017-09-09T17:52:13+00:00",
+            "type": "yii2-extension",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "yidas\\yii\\fontawesome\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nick Tsai",
+                    "email": "myintaer@gmail.com",
+                    "homepage": "https://github.com/yidas/"
+                }
+            ],
+            "description": "Font Awesome Asset Bundle for Yii2 framework",
+            "keywords": [
+                "asset",
+                "asset bundle",
+                "font awesome",
+                "yii"
+            ],
+            "support": {
+                "issues": "https://github.com/yidas/yii2-fontawesome/issues",
+                "source": "https://github.com/yidas/yii2-fontawesome"
+            },
+            "install-path": "../yidas/yii2-fontawesome"
         },
         {
             "name": "yiisoft/yii2",
@@ -6518,6 +6625,7 @@
         "codeception/verify",
         "doctrine/instantiator",
         "fakerphp/faker",
+        "fortawesome/font-awesome",
         "giggsey/libphonenumber-for-php",
         "giggsey/locale",
         "guzzlehttp/psr7",
@@ -6568,6 +6676,7 @@
         "symfony/string",
         "symfony/yaml",
         "theseer/tokenizer",
+        "yidas/yii2-fontawesome",
         "yiisoft/yii2-bootstrap",
         "yiisoft/yii2-debug",
         "yiisoft/yii2-faker",

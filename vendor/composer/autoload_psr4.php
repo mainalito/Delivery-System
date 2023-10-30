@@ -14,6 +14,7 @@ return array(
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap/src'),
     'yii\\bootstrap4\\' => array($vendorDir . '/yiisoft/yii2-bootstrap4/src'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
+    'yidas\\yii\\fontawesome\\' => array($vendorDir . '/yidas/yii2-fontawesome/src'),
     'sjaakp\\collapse\\' => array($vendorDir . '/sjaakp/yii2-collapse'),
     'riders\\tests\\' => array($baseDir . '/riders/tests', $baseDir . '/riders/tests/_support'),
     'riders\\' => array($baseDir . '/riders'),

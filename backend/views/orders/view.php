@@ -1,11 +1,16 @@
 <?php
 /** @var array $cartItems * */
+/** @var yii\web\View $this */
+
 
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 $this->title = 'Cart';
+$this->title = $model->ID;
+$this->params['breadcrumbs'][] = ['label' => 'orders', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="container">

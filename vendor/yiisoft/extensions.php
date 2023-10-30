@@ -111,4 +111,13 @@ return array (
       '@borales/extensions/phoneInput' => $vendorDir . '/borales/yii2-phone-input/src',
     ),
   ),
+  'yidas/yii2-fontawesome' => 
+  array (
+    'name' => 'yidas/yii2-fontawesome',
+    'version' => '2.0.0.0',
+    'alias' => 
+    array (
+      '@yidas/yii/fontawesome' => $vendorDir . '/yidas/yii2-fontawesome/src',
+    ),
+  ),
 );
