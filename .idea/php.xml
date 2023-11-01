@@ -119,6 +119,12 @@
       <path value="$PROJECT_DIR$/vendor/giggsey/libphonenumber-for-php" />
       <path value="$PROJECT_DIR$/vendor/bower-asset/intl-tel-input" />
       <path value="$PROJECT_DIR$/vendor/borales/yii2-phone-input" />
+      <path value="$PROJECT_DIR$/vendor/fortawesome/font-awesome" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/css" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/scss" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/fonts" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/less" />
+      <path value="$PROJECT_DIR$/vendor/yidas/yii2-fontawesome" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

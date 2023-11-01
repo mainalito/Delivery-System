@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92c3a247-2f6e-470f-9cc0-beea35df0aaf" name="Changes" comment="" />
+    <list default="true" id="92c3a247-2f6e-470f-9cc0-beea35df0aaf" name="Changes" comment="rider fix">
+      <change beforePath="$PROJECT_DIR$/.idea/delivery-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/delivery-system.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/riders/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/views/layouts/main.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -152,6 +157,12 @@
       <path value="$PROJECT_DIR$/vendor/giggsey/libphonenumber-for-php" />
       <path value="$PROJECT_DIR$/vendor/bower-asset/intl-tel-input" />
       <path value="$PROJECT_DIR$/vendor/borales/yii2-phone-input" />
+      <path value="$PROJECT_DIR$/vendor/fortawesome/font-awesome" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/css" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/scss" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/fonts" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/less" />
+      <path value="$PROJECT_DIR$/vendor/yidas/yii2-fontawesome" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -169,7 +180,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/inetpub/wwwroot/Delivery/Delivery-System",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/ATTAIN/Documents/Yii2 Projects/Delivery-System",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -195,13 +207,32 @@
       <workItem from="1698395625270" duration="1100000" />
       <workItem from="1698396820205" duration="820000" />
       <workItem from="1698406101938" duration="2525000" />
+      <workItem from="1698657544939" duration="4998000" />
     </task>
+    <task id="LOCAL-00001" summary="rider fix">
+      <option name="closed" value="true" />
+      <created>1698658892816</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1698658892816</updated>
+    </task>
+    <task id="LOCAL-00002" summary="rider fix">
+      <option name="closed" value="true" />
+      <created>1698658911228</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1698658911228</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="rider fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="rider fix" />
   </component>
 </project>
