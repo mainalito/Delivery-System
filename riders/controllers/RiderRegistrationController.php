@@ -3,12 +3,12 @@
 namespace riders\controllers;
 
 use common\models\User;
-use Yii;
 use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * RiderRegistrationController implements the CRUD actions for RiderRegistration model.
@@ -76,7 +76,7 @@ class RiderRegistrationController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 if ($model->validate() && $model->save()) {
-                    Yii::$app->session->setFlash(' success', ' Details have been successfully submitted for review.' );
+                    Yii::$app->session->setFlash(' success', ' Details have been successfully submitted for review.');
                     return $this->redirect(['/']);
                 }
             }
@@ -98,15 +98,18 @@ class RiderRegistrationController extends Controller
      */
     public function actionUpdate($UserID)
     {
-        $model = $this->findUser($UserID);
-        $user = User::find()->where(['id'=> $UserID])->one();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        $model = $this->findUser($UserID);
+        $user = User::find()->where(['id' => $UserID])->one();
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $user->load($this->request->post()) && $model->save() && $user->save()) {
+            Yii::$app->session->setFlash('success','Your Details were updated successfully');
             return $this->redirect(['view', 'ID' => $model->ID]);
         }
+        Yii::$app->session->setFlash('error','Failed to update your details');
 
         return $this->renderAjax('update', [
-            'model' => $model,'user'=>$user
+            'model' => $model, 'user' => $user
         ]);
     }
 
@@ -127,7 +130,7 @@ class RiderRegistrationController extends Controller
     public function actionReviewOrder($id)
     {
         $id = base64_decode($id);
-        
+
     }
 
     /**
@@ -145,6 +148,7 @@ class RiderRegistrationController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
     protected function findUser($UserID)
     {
         if (($model = RiderRegistration::findOne(['UserID' => isCurrentUser()])) !== null) {

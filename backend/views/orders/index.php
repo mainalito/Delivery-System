@@ -12,7 +12,7 @@ Pjax::begin(); ?>
         ['class' => 'yii\grid\SerialColumn'],
 
         'ID',
-        ['label' => 'Created By', 'value' => function ($model) {
+        ['label' => 'Customer Name', 'value' => function ($model) {
             return $model->user->username;
         }],
         [

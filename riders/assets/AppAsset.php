@@ -18,10 +18,7 @@ class AppAsset extends AssetBundle
         'https://fonts.googleapis.com/css?family=Montserrat:400,800',
         
         'css/sb-admin-2.min.css',
-        ''
-    
-    
-    
+
     ];
     
     public $js = [
@@ -30,6 +27,8 @@ class AppAsset extends AssetBundle
         "vendor/jquery-easing/jquery.easing.min.js",
         "vendor/chart.js/Chart.min.js",
         "js/sb-admin-2.min.js",
+        "js/mapbox.js",
+
     ];
     public $depends = [
         JqueryAsset::class,
