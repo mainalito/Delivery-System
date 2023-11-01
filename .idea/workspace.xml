@@ -4,23 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="92c3a247-2f6e-470f-9cc0-beea35df0aaf" name="Changes" comment="rider fix">
       <change beforePath="$PROJECT_DIR$/.idea/delivery-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/delivery-system.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/riders/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/riders/views/layouts/main.php" afterDir="false" />
+=======
+    <list default="true" id="92c3a247-2f6e-470f-9cc0-beea35df0aaf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> 7def9b4ab7304edd459e44c28280c59510551ef6
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ComposerConfigs">
-    <option name="configs">
-      <option value="$PROJECT_DIR$/frontend/web/assets/8144a74d/composer.json" />
-      <option value="$PROJECT_DIR$/frontend/web/assets/15ab0ec9/composer.json" />
-      <option value="$PROJECT_DIR$/frontend/web/assets/fb23c3e0/composer.json" />
-    </option>
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
@@ -48,6 +46,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Program Files\IIS Express\PHP\v7.4\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
@@ -158,18 +157,25 @@
       <path value="$PROJECT_DIR$/vendor/bower-asset/intl-tel-input" />
       <path value="$PROJECT_DIR$/vendor/borales/yii2-phone-input" />
       <path value="$PROJECT_DIR$/vendor/fortawesome/font-awesome" />
+<<<<<<< HEAD
       <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/css" />
       <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/scss" />
       <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/fonts" />
       <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/less" />
       <path value="$PROJECT_DIR$/vendor/yidas/yii2-fontawesome" />
+=======
+      <path value="$PROJECT_DIR$/vendor/yidas/yii2-fontawesome" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/less" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/scss" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/fonts" />
+      <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/css" />
+>>>>>>> 7def9b4ab7304edd459e44c28280c59510551ef6
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2XAM7SoGVyJn4TOLQic5l7VNqan" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -181,7 +187,11 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
+<<<<<<< HEAD
     "last_opened_file_path": "C:/Users/ATTAIN/Documents/Yii2 Projects/Delivery-System",
+=======
+    "last_opened_file_path": "C:/inetpub/wwwroot/ERA/ERA%20RMIS",
+>>>>>>> 7def9b4ab7304edd459e44c28280c59510551ef6
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -206,8 +216,14 @@
       <workItem from="1698395001302" duration="569000" />
       <workItem from="1698395625270" duration="1100000" />
       <workItem from="1698396820205" duration="820000" />
+<<<<<<< HEAD
       <workItem from="1698406101938" duration="2525000" />
       <workItem from="1698657544939" duration="4998000" />
+=======
+      <workItem from="1698405115063" duration="8387000" />
+      <workItem from="1698481573827" duration="11915000" />
+      <workItem from="1698658586611" duration="988000" />
+>>>>>>> 7def9b4ab7304edd459e44c28280c59510551ef6
     </task>
     <task id="LOCAL-00001" summary="rider fix">
       <option name="closed" value="true" />
@@ -231,8 +247,11 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+<<<<<<< HEAD
   <component name="VcsManagerConfiguration">
     <MESSAGE value="rider fix" />
     <option name="LAST_COMMIT_MESSAGE" value="rider fix" />
   </component>
+=======
+>>>>>>> 7def9b4ab7304edd459e44c28280c59510551ef6
 </project>

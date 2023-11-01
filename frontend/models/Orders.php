@@ -2,6 +2,8 @@
 
 namespace frontend\models;
 
+use backend\models\ConfirmationStatus;
+use riders\models\RiderRegistration;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -36,8 +38,11 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'status'], 'integer'],
-            [['confirmed_at'], 'safe'],
+            [['confirmed_at', 'DateConfirmed', 'DateAssigned', 'DateDelivered'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['Rider'], 'exist', 'skipOnError' => true, 'targetClass' => RiderRegistration::class, 'targetAttribute' => ['Rider' => 'ID']],
+            [['RiderConfirmation'], 'exist', 'skipOnError' => true, 'targetClass' => ConfirmationStatus::class, 'targetAttribute' => ['Status' => 'ID']],
+            [['RiderDelivery'], 'exist', 'skipOnError' => true, 'targetClass' => ConfirmationStatus::class, 'targetAttribute' => ['Status' => 'ID']],
         ];
     }
 
@@ -83,5 +88,32 @@ class Orders extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+    /**
+     * Gets query for [[Rider]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRider()
+    {
+        return $this->hasOne(RiderRegistration::class, ['ID' => 'Rider']);
+    }
+    /**
+     * Gets query for [[Rider]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRiderAvailabilityConfirmation()
+    {
+        return $this->hasOne(ConfirmationStatus::class, ['ID' => 'Status']);
+    }
+    /**
+     * Gets query for [[Rider]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRiderDeliveryConfirmation()
+    {
+        return $this->hasOne(ConfirmationStatus::class, ['ID' => 'Status']);
     }
 }

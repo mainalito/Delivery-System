@@ -59,7 +59,12 @@ AppAsset::register($this);
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo \yii\helpers\Url::to(['/orders/']) ?>">
+                    <i class="fas fa-fw fa-motorcycle"></i>
+                    <span>Deliveries Assigned</span>
+                </a>
+            </li>
 
 
             <!-- Divider -->
@@ -101,7 +106,9 @@ AppAsset::register($this);
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?=Url::to(['rider-registration/update','UserID'=>isCurrentUser()])?>">
+                                <a class="dropdown-item" href="<?=Url::to([
+                                    'rider-registration/update',
+                                    'UserID'=>isCurrentUser()])?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>

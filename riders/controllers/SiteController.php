@@ -3,6 +3,7 @@
 namespace riders\controllers;
 
 use common\models\LoginForm;
+use frontend\models\Orders as ModelsOrders;
 use riders\models\CartItem;
 use riders\models\ContactForm;
 use riders\models\Orders;
@@ -34,11 +35,10 @@ class SiteController extends Controller
 
         if ($order) {
             $this->view->params['cartCount'] = (int) CartItem::find()
-                ->where(['created_by' => isCurrentUser(),'order_id'=>$order->ID])
+                ->where(['created_by' => isCurrentUser(), 'order_id' => $order->ID])
                 ->sum('quantity');
         } else {
             $this->view->params['cartCount'] = 0;
-
         }
 
         return parent::beforeAction($action);
@@ -98,12 +98,20 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if (!isCurrentUser()){
+        if (!isCurrentUser()) {
             return $this->redirect(['login']);
         }
+    
+        /* Get the number of new deliveries */
+        $ordersAssigned = Orders::find()
+            ->joinWith('riderRegistration')  
+            ->where(['riderRegistration.UserID' => isCurrentUser()])  
+            ->count();
+    
         $products = Products::find()->all();
-        return $this->render('index', ['products' => $products]);
+        return $this->render('index', ['products' => $products, 'ordersAssigned' => $ordersAssigned]);
     }
+    
 
     /**
      * Logs in a user.

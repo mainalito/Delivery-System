@@ -55,34 +55,34 @@ class RidersController extends Controller
             'model' => $model,
         ]);
     }
-    private function saveRider(RiderRegistration $model) {
+    private function saveRider(RiderRegistration $model)
+    {
         // Check if the user exists
         $user = User::findOne(['id' => $model->UserID]);
-        $this->sendEmail($user);
-    
+
         // If no user found and the model status is 1 (approved), create a new user
         if (!$user && $model->Status == 1) {
             $user = new User();
             $user->generateAuthKey();
             $user->generateEmailVerificationToken();
-    
+
             // Assign fields with unique username logic
             $user->username = $model->FirstName . '_' . $this->generateRandomString();
-    
+
             while (!$user->validate(['username'])) {
                 $user->username = $model->FirstName . '_' . $this->generateRandomString();
             }
-    
+
             $user->setPassword(strtolower($model->LastName)); // Use the setPassword method you have in your User model
             $user->email = $model->Email;
-    
+
             // Validate and save the user
             if (!$user->save()) {
                 // Handle validation errors
                 Yii::$app->session->setFlash('error', 'Failed to save User.');
                 return false;
             }
-    
+
             $model->UserID = $user->id;
             // If user account is created/exists, try to save the model
             if (!$model->save()) {
@@ -90,19 +90,19 @@ class RidersController extends Controller
                 Yii::$app->session->setFlash('error', 'Failed to save Rider model.');
                 return false;
             }
-          
+            $this->sendEmail($user);
         } elseif ($model->Status == 2) {
             // If status is 2, don't create an account and return early
             return false;
         }
-    
+
         // Send notification to rider logic here
         // E.g., using Yii2's mailer component to send an email
         return true;
     }
     protected function sendEmail(User $user)
     {
-       return Yii::$app
+        return Yii::$app
             ->mailer
             ->compose(
                 ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
@@ -112,7 +112,7 @@ class RidersController extends Controller
             ->setTo($user->email)
             ->setSubject('Account registration at ' . Yii::$app->name)
             ->send();
-            // VarDumper::dump($response,10,true);exit;
+        // VarDumper::dump($response,10,true);exit;
     }
 
     /**
@@ -130,7 +130,8 @@ class RidersController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    private function generateRandomString($length = 4) {
+    private function generateRandomString($length = 4)
+    {
         $characters = 'abcdefghijklmnopqrstuvwxyz';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -139,5 +140,4 @@ class RidersController extends Controller
         }
         return $randomString;
     }
-    
 }
