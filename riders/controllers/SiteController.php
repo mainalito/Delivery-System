@@ -104,8 +104,8 @@ class SiteController extends Controller
     
         /* Get the number of new deliveries */
         $ordersAssigned = Orders::find()
-            ->joinWith('riderRegistration')  // Assuming you have a 'riderRegistration' relation setup in your Orders model
-            ->where(['riderRegistration.UserID' => Yii::$app->user->id])  // Adjust the table and column names if they are different
+            ->joinWith('riderRegistration')  
+            ->where(['riderRegistration.UserID' => isCurrentUser()])  
             ->count();
     
         $products = Products::find()->all();
