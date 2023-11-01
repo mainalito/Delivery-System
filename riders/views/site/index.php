@@ -18,7 +18,7 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
                                     <?php
-                                    // echo $totalUsers 
+                                    echo $ordersAssigned 
                                     ?>
                                 </div>
                             </div>

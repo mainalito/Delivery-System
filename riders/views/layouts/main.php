@@ -58,7 +58,12 @@ AppAsset::register($this);
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo \yii\helpers\Url::to(['/orders/']) ?>">
+                    <i class="fas fa-fw fa-motorcycle"></i>
+                    <span>Deliveries Assigned</span>
+                </a>
+            </li>
 
 
             <!-- Divider -->

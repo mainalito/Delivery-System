@@ -17,7 +17,7 @@ class OrdersSearch extends Orders
     public function rules()
     {
         return [
-            [['ID', 'user_id', 'status'], 'integer'],
+            [['ID', 'user_id', 'status', 'Rider'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -40,10 +40,11 @@ class OrdersSearch extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find();
+        $query = Orders::find()
+        ->joinWith('riderRegistration')
+        ->where(['riderRegistration.UserID' => isCurrentUser()]);
 
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

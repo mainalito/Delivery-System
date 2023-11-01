@@ -35,9 +35,10 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'status'], 'integer'],
+            [['user_id', 'status', 'Rider'], 'integer'],
             [['confirmed_at'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['Rider'], 'exist', 'skipOnError' => true, 'targetClass' => RiderRegistration::class, 'targetAttribute' => ['Rider' => 'ID']],
         ];
     }
 
@@ -83,5 +84,14 @@ class Orders extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRiderRegistration()
+    {
+        return $this->hasOne(RiderRegistration::className(), ['ID' => 'Rider']);
     }
 }
