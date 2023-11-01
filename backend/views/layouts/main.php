@@ -2,6 +2,7 @@
 
 /** @var View $this */
 
+use yii\bootstrap4\Alert;
 use yii\web\View;
 
 /** @var string $content */
@@ -148,7 +149,7 @@ AppAsset::register($this);
                 </div>
                 <!-- End of Breadcrumbs -->
 
-
+                <?= Alert::widget() ?>
                 <div class="p-4">
                     <?php echo $content ?>
                 </div>
