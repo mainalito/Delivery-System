@@ -1,10 +1,12 @@
 <?php
 
+
 namespace riders\models;
 
+use frontend\models\Orders;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use riders\models\Orders;
+
 
 /**
  * OrdersSearch represents the model behind the search form of `riders\models\Orders`.
@@ -28,7 +30,7 @@ class OrdersSearch extends Orders
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return (new Model)->scenarios();
     }
 
     /**
@@ -41,8 +43,12 @@ class OrdersSearch extends Orders
     public function search($params)
     {
         $query = Orders::find()
-        ->joinWith('riderRegistration')
-        ->where(['riderRegistration.UserID' => isCurrentUser()]);
+            ->joinWith('rider')
+            ->where([
+                'RiderRegistration.UserID' => isCurrentUser(),
+                'orders.status' => [Orders::STATUS_PAID,Orders::STATUS_SHIPPED]
+            ]);
+
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([

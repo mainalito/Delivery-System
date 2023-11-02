@@ -21,6 +21,7 @@ use Yii;
  *
  * @property Status $status
  * @property Vehicle $vehicle
+
  */
 class RiderRegistration extends \yii\db\ActiveRecord
 {

@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Url;
-
+$this->title = 'Riders Dashboard';
+\yii\web\YiiAsset::register($this);
 ?>
 <div class="site-index">
     <!-- Content Row -->

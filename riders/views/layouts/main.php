@@ -136,7 +136,8 @@ AppAsset::register($this);
                 </div>
                 <!-- End of Breadcrumbs -->
 
-                <?= Alert::widget() ?>
+                <?= $this->render('_alert'); ?>
+
                 <div class="p-4">
                     <?php echo $content ?>
                 </div>

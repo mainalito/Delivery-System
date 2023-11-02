@@ -1,6 +1,6 @@
-<?php use yii\grid\GridView;
+<?php use frontend\models\Orders;
+use yii\grid\GridView;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 Pjax::begin(); ?>
@@ -19,13 +19,35 @@ Pjax::begin(); ?>
             'label' => 'Status',
             'format' => 'raw',
             'value' => function ($model) {
-                if ($model->status == \frontend\models\Orders::STATUS_CONFIRMED) {
-                    return '<span class="badge badge-success">STATUS_CONFIRMED</span>';
-                } else if ($model->status == \frontend\models\Orders::STATUS_DRAFT) {
-                    return '<span class="badge badge-warning">STATUS_DRAFT</span>';
-                } else {
-                    return '<span class="badge badge-secondary">FAILED</span>';
+
+                $statusLabel = '';
+                $badgeClass = '';
+
+                switch ($model->status) {
+                    case Orders::STATUS_DRAFT:
+                        $statusLabel = 'Draft';
+                        $badgeClass = 'badge-secondary'; // Gray badge for draft
+                        break;
+                    case Orders::STATUS_PAID:
+                        $statusLabel = 'Paid';
+                        $badgeClass = 'badge-success'; // Green badge for paid
+                        break;
+                    case Orders::STATUS_SHIPPED:
+                        $statusLabel = 'Shipped';
+                        $badgeClass = 'badge-info'; // Blue badge for shipped
+                        break;
+                    case Orders::STATUS_COMPLETED:
+                        $statusLabel = 'Confirmed';
+                        $badgeClass = 'badge-warning'; // Yellow badge for confirmed
+                        break;
+                    default:
+                        $statusLabel = 'Failed';
+                        $badgeClass = 'badge-danger';
+                        break;
                 }
+
+                return '<span class="badge ' . $badgeClass . '">' . $statusLabel . '</span>';
+
             }
         ],
 
@@ -36,7 +58,6 @@ Pjax::begin(); ?>
                 return Html::a("View Order", ['/orders/view', 'id' => $model->ID], ['class' => 'btn btn-primary']);
             }
         ]
-        
 
 
     ],

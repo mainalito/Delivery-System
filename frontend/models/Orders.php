@@ -14,14 +14,20 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $status
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property int|null RiderConfirmation
  * @property string|null confrimed_at
+ * @property string|null DateConfirmed
  * @property Track[] $tracks
- * @property User $user
+ * @property RiderRegistration $Rider
+ * * @property User $user
  */
 class Orders extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 0;
-    const STATUS_CONFIRMED = 1;
+    const STATUS_PAID = 1;
+    const STATUS_SHIPPED = 2;
+
+    const STATUS_COMPLETED = 3;
 
     /**
      * {@inheritdoc}
@@ -37,12 +43,12 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'status'], 'integer'],
+            [['user_id', 'status','RiderConfirmation'], 'integer'],
             [['confirmed_at', 'DateConfirmed', 'DateAssigned', 'DateDelivered'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['Rider'], 'exist', 'skipOnError' => true, 'targetClass' => RiderRegistration::class, 'targetAttribute' => ['Rider' => 'ID']],
-            [['RiderConfirmation'], 'exist', 'skipOnError' => true, 'targetClass' => ConfirmationStatus::class, 'targetAttribute' => ['Status' => 'ID']],
-            [['RiderDelivery'], 'exist', 'skipOnError' => true, 'targetClass' => ConfirmationStatus::class, 'targetAttribute' => ['Status' => 'ID']],
+            [['RiderConfirmation'], 'exist', 'skipOnError' => true, 'targetClass' => ConfirmationStatus::class, 'targetAttribute' => ['RiderConfirmation' => 'ID']],
+            [['RiderDelivery'], 'exist', 'skipOnError' => true, 'targetClass' => ConfirmationStatus::class, 'targetAttribute' => ['RiderConfirmation' => 'ID']],
         ];
     }
 
@@ -105,7 +111,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getRiderAvailabilityConfirmation()
     {
-        return $this->hasOne(ConfirmationStatus::class, ['ID' => 'Status']);
+        return $this->hasOne(ConfirmationStatus::class, ['ID' => 'RiderConfirmation']);
     }
     /**
      * Gets query for [[Rider]].
@@ -114,6 +120,6 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getRiderDeliveryConfirmation()
     {
-        return $this->hasOne(ConfirmationStatus::class, ['ID' => 'Status']);
+        return $this->hasOne(ConfirmationStatus::class, ['ID' => 'RiderConfirmation']);
     }
 }

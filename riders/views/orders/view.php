@@ -2,10 +2,12 @@
 
 /** @var array $cartItems * */
 /** @var $model UserAddress * */
+/** @var $order Orders * */
 
 /** @var yii\web\View $this */
 
 use backend\models\ConfirmationStatus;
+use frontend\models\Orders;
 use riders\models\UserAddress;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -119,13 +121,16 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
                     </div>
                 </div>
             <?php endif; ?>
-
+<!--             Check if the order is paid but not confirmed by the rider-->
+            <?php
+            if ($order->status == Orders::STATUS_PAID && $order->RiderConfirmation != 1):
+            ?>
             <!-- Assign Rider -->
             <div class="card">
                 <div class="card-header bg-warning text-dark">Acknowledge Delivery</div>
                 <div class="card-body">
-                    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-                    <?= $form->field($order, 'RiderConfirmation')->dropDownList(ArrayHelper::map(ConfirmationStatus::find()->all(), 'ID', 'Status'))->label(false) ?>
+                    <?php $form = ActiveForm::begin(); ?>
+                    <?= $form->field($order, 'RiderConfirmation')->dropDownList(ArrayHelper::map(ConfirmationStatus::find()->all(), 'ID', 'Status'), ['prompt' => 'Select Confirmation Status'])->label(false) ?>
                     <div class="form-group">
                         <?= Html::submitButton("Submit", [
                             'class' => 'btn btn-primary btn-block',
@@ -138,20 +143,30 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>
+            <?php else: ?>
+            <!-- Show confirmation message -->
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Order Confirmed!</h4>
+                <p>You have already confirmed order number <?= Html::encode($order->ID) ?>.</p>
+                <hr>
+                <p class="mb-0">Thank you for confirming the delivery. Your acknowledgement has been recorded.</p>
+            </div>
+            <?php endif; ?>
+
         </div>
     </div>
     <div id="map" style="width: 100%; height: 500px;"></div>
-   <script>
-       let googleApiKey = 'AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao';
-       fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent('kisumu')}&key=${googleApiKey}`)
-           .then(response => response.json())
-           .then(data => {
-               if(data.results && data.results.length > 0) {
-                   let location = data.results[0].geometry.location;
-                   // Use location.lat and location.lng for the exact coordinates
-               }
-           });
+    <script>
+        let googleApiKey = 'AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao';
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent('kisumu')}&key=${googleApiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results && data.results.length > 0) {
+                    let location = data.results[0].geometry.location;
+                    // Use location.lat and location.lng for the exact coordinates
+                }
+            });
 
-   </script>
+    </script>
 
 </div>

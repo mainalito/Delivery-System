@@ -10,6 +10,7 @@ use riders\models\RiderRegistration;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -50,9 +51,11 @@ class OrdersController extends Controller
         if ($order->load(Yii::$app->request->post())) {
             $order->DateAssigned = date('Y-m-d H:i:s');
             if ($order->save(false)) {
-                Yii::$app->session->setFlash('success', ' Rider Assigned Successfully.', );
+                Yii::$app->session->setFlash('success', ' Rider Assigned Successfully.',);
                 return $this->redirect(Yii::$app->request->referrer);
             }
+            Yii::$app->session->setFlash('error', Json::encode($order->errors));
+            return $this->redirect(Yii::$app->request->referrer);
         }
         $totalSum = CartItem::getTotalCount($order->ID);
         $model = UserAddress::find()->where(['UserID' => $order->user_id])->one();

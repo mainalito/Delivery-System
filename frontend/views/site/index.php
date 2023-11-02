@@ -5,7 +5,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'Ecommerce';
+$this->title = 'Ecommerce Dashboard';
+\yii\web\YiiAsset::register($this);
 ?>
 <div class="container">
 

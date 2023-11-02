@@ -73,7 +73,7 @@ class SiteController extends Controller
         // Get the IDs of all confirmed orders
         $confirmedOrderIds = Orders::find()
             ->select('ID')
-            ->where(['status' => Orders::STATUS_CONFIRMED])
+            ->where(['status' => Orders::STATUS_PAID])
             ->column();
 
         // Calculate the total earnings

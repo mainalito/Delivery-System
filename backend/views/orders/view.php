@@ -2,7 +2,11 @@
 
 /** @var array $cartItems * */
 /** @var yii\web\View $this */
+/** @var Orders $order */
+/** @var UserAddress $model */
 
+use frontend\models\Orders;
+use frontend\models\UserAddress;
 use riders\models\RiderRegistration;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
@@ -49,7 +53,44 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="4">Order Status</th>
+                                <td>
+                                    <?php
+                                    $statusLabel = '';
+                                    $badgeClass = '';
+
+                                    switch ($order->status) {
+                                        case Orders::STATUS_DRAFT:
+                                            $statusLabel = 'Draft';
+                                            $badgeClass = 'badge-secondary'; // Gray badge for draft
+                                            break;
+                                        case Orders::STATUS_PAID:
+                                            $statusLabel = 'Paid';
+                                            $badgeClass = 'badge-success'; // Green badge for paid
+                                            break;
+                                        case Orders::STATUS_SHIPPED:
+                                            $statusLabel = 'Shipped';
+                                            $badgeClass = 'badge-info'; // Blue badge for shipped
+                                            break;
+                                        case Orders::STATUS_COMPLETED:
+                                            $statusLabel = 'Confirmed';
+                                            $badgeClass = 'badge-warning'; // Yellow badge for confirmed
+                                            break;
+                                        default:
+                                            $statusLabel = 'Failed';
+                                            $badgeClass = 'badge-danger';
+                                            break;
+                                    }
+                                    ?>
+                                    <span class="badge <?= $badgeClass; ?>"><?= $statusLabel; ?></span>
+                                </td>
+
+                            </tr>
+                            </tfoot>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -94,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <!-- Rider Assigned -->
-            <?php if ($order->Rider !== null) : ?>
+            <?php if ($order->Rider !== null && $order->status === Orders::STATUS_PAID) : ?>
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white">Rider Assigned</div>
                     <div class="card-body table-responsive">
@@ -141,7 +182,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]) ?>
                     </div>
                 </div>
-            <?php endif; ?>
 
             <!-- Assign Rider -->
             <div class="card">
@@ -157,6 +197,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>
+            <?php endif; ?>
+
         </div>
     </div>
 </div>

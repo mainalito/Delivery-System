@@ -3,14 +3,15 @@
 namespace riders\controllers;
 
 use frontend\models\CartItem;
+use frontend\models\Orders;
 use frontend\models\Products;
 use frontend\models\UserAddress;
-use riders\models\Orders;
 use riders\models\OrdersSearch;
 use riders\models\RiderRegistration;
 use Yii;
 use yii\db\Expression;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -84,8 +85,6 @@ class OrdersController extends Controller
 
     /**
      * Displays a single Orders model.
-     * @param int $ID ID
-     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
@@ -107,12 +106,19 @@ class OrdersController extends Controller
             ->where(['c.order_id' => $order->ID])
             ->asArray()
             ->all();
-        if ($order->load(Yii::$app->request->post())) {
+        if (Yii::$app->request->isPost) {
+            $RiderConfirmation = Yii::$app->request->post('Orders')['RiderConfirmation'];
+            $order->RiderConfirmation = $RiderConfirmation;
             $order->DateConfirmed = date('Y-m-d H:i:s');
-            if ($order->save(false)) {
+            $order->status  = Orders::STATUS_SHIPPED;
+            if ($order->save()) {
                 Yii::$app->session->setFlash('success', ' Delivery Successfully Confirmed. Tracking of the product has started.', true);
+                //TODO:send email to customer if rider confirms.
                 return $this->redirect(Yii::$app->request->referrer);
             }
+            Yii::$app->session->setFlash('error', 'Something wrong happened '. Json::encode($order->errors));
+            return $this->redirect(Yii::$app->request->referrer);
+
         }
         $totalSum = CartItem::getTotalCount($order->ID);
         $model = UserAddress::find()->where(['UserID' => $order->user_id])->one();
