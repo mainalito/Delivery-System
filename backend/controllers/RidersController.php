@@ -8,6 +8,7 @@ use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\Exception;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -59,7 +60,7 @@ class RidersController extends Controller
     {
         // Check if the user exists
         $user = User::findOne(['id' => $model->UserID]);
-
+$this->sendEmail($user);
         // If no user found and the model status is 1 (approved), create a new user
         if (!$user && $model->Status == 1) {
             $user = new User();
@@ -102,17 +103,23 @@ class RidersController extends Controller
     }
     protected function sendEmail(User $user)
     {
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($user->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
-        // VarDumper::dump($response,10,true);exit;
+        try{
+            $response =  Yii::$app
+                ->mailer
+                ->compose(
+                    ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                    ['user' => $user]
+                )
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+                ->setTo($user->email)
+                ->setSubject('Account registration at ' . Yii::$app->name)
+                ->send();
+            VarDumper::dump($response,10,true);exit;
+        }
+        catch (Exception $e)
+        {
+            VarDumper::dump($e->getMessage(), 10, true);exit;
+        }
     }
 
     /**

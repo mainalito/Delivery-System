@@ -26,6 +26,7 @@ return array(
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base/src'),
     'frontend\\tests\\' => array($baseDir . '/frontend/tests', $baseDir . '/frontend/tests/_support'),
     'frontend\\' => array($baseDir . '/frontend'),
+    'diecoding\\toastr\\' => array($vendorDir . '/diecoding/yii2-toastr/src'),
     'console\\' => array($baseDir . '/console'),
     'common\\tests\\' => array($baseDir . '/common/tests', $baseDir . '/common/tests/_support'),
     'common\\' => array($baseDir . '/common'),

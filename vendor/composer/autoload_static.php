@@ -64,6 +64,10 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
             'frontend\\tests\\' => 15,
             'frontend\\' => 9,
         ),
+        'd' => 
+        array (
+            'diecoding\\toastr\\' => 17,
+        ),
         'c' => 
         array (
             'console\\' => 8,
@@ -218,6 +222,10 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
         'frontend\\' => 
         array (
             0 => __DIR__ . '/../..' . '/frontend',
+        ),
+        'diecoding\\toastr\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/diecoding/yii2-toastr/src',
         ),
         'console\\' => 
         array (

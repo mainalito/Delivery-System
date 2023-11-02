@@ -125,9 +125,14 @@
       <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/fonts" />
       <path value="$PROJECT_DIR$/vendor/font-awesome-4.7.0/less" />
       <path value="$PROJECT_DIR$/vendor/yidas/yii2-fontawesome" />
+      <path value="$PROJECT_DIR$/vendor/npm-asset/toastr" />
+      <path value="$PROJECT_DIR$/vendor/npm-asset/jquery" />
+      <path value="$PROJECT_DIR$/vendor/diecoding/yii2-toastr" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.4">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>

@@ -50,7 +50,7 @@ class OrdersController extends Controller
         if ($order->load(Yii::$app->request->post())) {
             $order->DateAssigned = date('Y-m-d H:i:s');
             if ($order->save(false)) {
-                Yii::$app->session->setFlash('success', ' Rider Assigned Successfully.', true);
+                Yii::$app->session->setFlash('success', ' Rider Assigned Successfully.', );
                 return $this->redirect(Yii::$app->request->referrer);
             }
         }

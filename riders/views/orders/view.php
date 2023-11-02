@@ -21,6 +21,10 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
 
 ?>
 
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap"
+        defer
+></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet'/>
 
@@ -137,52 +141,17 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
         </div>
     </div>
     <div id="map" style="width: 100%; height: 500px;"></div>
-    <script type="text/javascript">
-        var mapToken = '<?= Yii::$app->params['mapToken'] ?>';
-        mapboxgl.accessToken = mapToken;
+   <script>
+       let googleApiKey = 'AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao';
+       fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent('kisumu')}&key=${googleApiKey}`)
+           .then(response => response.json())
+           .then(data => {
+               if(data.results && data.results.length > 0) {
+                   let location = data.results[0].geometry.location;
+                   // Use location.lat and location.lng for the exact coordinates
+               }
+           });
 
-        mapboxgl.accessToken = '<?= Yii::$app->params['mapToken'] ?>';
-
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: [-74.5, 40],
-            zoom: 9
-        });
-
-        let customerAddress = '<?=$customerAddress?>';
-        alert(encodeURIComponent(customerAddress))
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                let riderLat = position.coords.latitude;
-                let riderLng = position.coords.longitude;
-
-                // Geocode the customer's address to get its coordinates
-                fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(customerAddress)}.json?access_token=${mapboxgl.accessToken}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const customerCoordinates = data.features[0].geometry.coordinates;
-
-                        // Add customer location marker to the map
-                        new mapboxgl.Marker().setLngLat(customerCoordinates).addTo(map);
-
-                        // Add rider's marker to the map
-                        new mapboxgl.Marker({color: "red"}).setLngLat([riderLng, riderLat]).addTo(map);
-
-                        // ... [code to fetch and display directions if desired]
-
-                        // Center the map around the customer's location or adjust as needed
-                        map.flyTo({center: customerCoordinates});
-                    });
-            }, function (error) {
-                console.error("Error obtaining geolocation", error);
-            });
-        } else {
-            console.log("Geolocation is not supported by this browser.");
-        }
-
-
-    </script>
+   </script>
 
 </div>
