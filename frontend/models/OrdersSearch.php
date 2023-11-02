@@ -4,7 +4,6 @@ namespace frontend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Orders;
 
 /**
  * OrdersSearch represents the model behind the search form of `frontend\models\Orders`.
@@ -40,7 +39,7 @@ class OrdersSearch extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find();
+        $query = Orders::find()->where(['status' => [Orders::STATUS_PAID, Orders::STATUS_SHIPPED, Orders::STATUS_COMPLETED]]);
 
         // add conditions that should always apply here
 

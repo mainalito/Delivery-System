@@ -16,6 +16,7 @@ use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
@@ -33,8 +34,8 @@ class SiteController extends Controller
         $order = Orders::find()->where(['user_id' => isCurrentUser(), 'status' => Orders::STATUS_DRAFT])->one();
 
         if ($order) {
-            $this->view->params['cartCount'] = (int) CartItem::find()
-                ->where(['created_by' => isCurrentUser(),'order_id'=>$order->ID])
+            $this->view->params['cartCount'] = (int)CartItem::find()
+                ->where(['created_by' => isCurrentUser(), 'order_id' => $order->ID])
                 ->sum('quantity');
         } else {
             $this->view->params['cartCount'] = 0;
@@ -113,7 +114,9 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        // In frontend application
+        $model = new LoginForm(['applicationType' => 'frontend']);
+        ;
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
@@ -177,8 +180,9 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
-        $model = new SignupForm();
 
+        $model = new SignupForm();
+        $model->scenario = SignupForm::SCENARIO_CUSTOMER;
         // Check if the form is submitted and the data can be loaded into the model
         if ($model->load(Yii::$app->request->post())) {
 
@@ -190,6 +194,9 @@ class SiteController extends Controller
                 // Redirect the user to the home page
                 return $this->goHome();
             }
+
+            Yii::$app->session->setFlash('error', Json::encode($model->errors));
+
         }
 
         // Render the signup form

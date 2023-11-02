@@ -13,10 +13,24 @@ use yii\helpers\VarDumper;
 class SignupForm extends Model
 {
     public $username;
+    public $firstname;
+    public $lastname;
     public $email;
     public $password;
+    public $usertypeid;
 
-
+    const SCENARIO_CUSTOMER = 'customer_signup';
+    const SCENARIO_RIDER = 'rider_signup';
+    const STATUS_USER = 1 ;//normal customer
+    const STATUS_RIDER = 2 ;//rider
+    // Set scenario-specific rules
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_CUSTOMER] = ['username', 'email', 'password', 'firstname', 'lastname', ];
+        $scenarios[self::SCENARIO_RIDER] = ['username', 'email', 'password', 'firstname', 'lastname',];
+        return $scenarios;
+    }
     /**
      * {@inheritdoc}
      */
@@ -33,11 +47,15 @@ class SignupForm extends Model
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
-
+            [['firstname','lastname'], 'string', 'max' => 255],
+            [['lastname', 'firstname',], 'required'],
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['usertypeid', 'required'],
+            ['usertypeid', 'in', 'range' => [self::STATUS_USER, self::STATUS_RIDER]],
         ];
     }
+
 
     /**
      * Signs user up.
@@ -53,9 +71,20 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->firstname = $this->firstname;
+        $user->lastname = $this->lastname;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+        // Assign usertype based on scenario
+        switch ($this->scenario) {
+            case self::SCENARIO_CUSTOMER:
+                $user->usertypeid = self::STATUS_USER;
+                break;
+            case self::SCENARIO_RIDER:
+                $user->usertypeid = self::STATUS_RIDER;
+                break;
+        }
         if (!$user->save()) {
             VarDumper::dump($user->getErrors(), 10, true);
         exit;

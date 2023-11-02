@@ -3,12 +3,15 @@
 namespace riders\controllers;
 
 use common\models\LoginForm;
+use frontend\models\CartItem;
+use frontend\models\Orders;
 use frontend\models\Orders as ModelsOrders;
-use riders\models\CartItem;
+use frontend\models\Products;
+
 use riders\models\ContactForm;
-use riders\models\Orders;
+
 use riders\models\PasswordResetRequestForm;
-use riders\models\Products;
+
 use riders\models\ResendVerificationEmailForm;
 use riders\models\ResetPasswordForm;
 use riders\models\SignupForm;
@@ -103,7 +106,7 @@ class SiteController extends Controller
         }
     
         /* Get the number of new deliveries */
-        $ordersAssigned = Orders::find()
+        $ordersAssigned = ModelsOrders::find()
             ->joinWith('riderRegistration')  
             ->where(['riderRegistration.UserID' => isCurrentUser()])  
             ->count();
@@ -120,12 +123,14 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        // if (!Yii::$app->user->isGuest) {
-        //     return $this->goHome();
-        // }
+         if (!Yii::$app->user->isGuest) {
+             return $this->goHome();
+         }
         $this->layout = 'login';
 
-        $model = new LoginForm();
+        // In rider application
+        $model = new LoginForm(['applicationType' => 'rider']);
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }

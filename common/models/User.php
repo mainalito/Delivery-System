@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use frontend\models\SignupForm;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -22,10 +23,9 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
- * @property string $address
- * @property string $County
- * @property string $Subcounty
- * @property string $PhoneNumber
+ * @property string $firstname
+ * @property string $lastname
+
 
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -42,6 +42,17 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return '{{%user}}';
     }
+
+    public static function findByUsernameAndType($username, $applicationType)
+    {
+        if ($applicationType === 'rider') {
+            return static::findOne(['username' => $username, 'usertypeid' => SignupForm::STATUS_RIDER]);
+        } elseif ($applicationType === 'frontend') {
+            return static::findOne(['username' => $username, 'usertypeid' => SignupForm::STATUS_USER]);
+        }
+
+    }
+
 
     /**
      * {@inheritdoc}

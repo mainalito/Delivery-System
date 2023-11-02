@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\User;
 use frontend\models\Orders;
+use frontend\models\SignupForm;
 use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
 use Yii;
@@ -34,6 +35,7 @@ class RidersController extends Controller
     public function actionView($ID)
     {
         $model = $this->findModel($ID);
+        $model->scenario = SignupForm::SCENARIO_RIDER;
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 

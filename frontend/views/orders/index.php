@@ -17,9 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -31,16 +28,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'ID',
-            'user_id',
-            'status',
-            'created_at',
-            'updated_at',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'ID' => $model->ID]);
-                 }
+                'attribute' => 'status',
+                'format' => 'raw',
+                'label' => 'Order Status',
+                'value' => function ($model) {
+                    switch ($model->status) {
+                        case Orders::STATUS_PAID:
+                            $badgeClass = 'badge-success';
+                            $statusLabel = 'Paid';
+                            break;
+                        case Orders::STATUS_SHIPPED:
+                            $badgeClass = 'badge-info';
+                            $statusLabel = 'Shipped';
+                            break;
+                        case Orders::STATUS_COMPLETED:
+                            $badgeClass = 'badge-primary';
+                            $statusLabel = 'Confirmed';
+                            break;
+                        case Orders::STATUS_DRAFT:
+                        default:
+                            $badgeClass = 'badge-secondary';
+                            $statusLabel = 'Draft';
+                            break;
+                    }
+                    return "<span class=\"badge {$badgeClass}\">{$statusLabel}</span>";
+                },
             ],
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]); ?>
 

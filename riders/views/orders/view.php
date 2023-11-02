@@ -144,7 +144,7 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
                 </div>
             </div>
             <?php else: ?>
-            <!-- Show confirmation message -->
+            <!-- Show a confirmation message -->
             <div class="alert alert-success" role="alert">
                 <h4 class="alert-heading">Order Confirmed!</h4>
                 <p>You have already confirmed order number <?= Html::encode($order->ID) ?>.</p>

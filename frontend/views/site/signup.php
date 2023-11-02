@@ -1,7 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
+/** @var yii\bootstrap4\ActiveForm $form */
 /** @var \frontend\models\SignupForm $model */
 
 use yii\bootstrap4\Html;
@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
+                <?= $form->field($model, 'firstname')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'lastname')->textInput(['autofocus' => true]) ?>
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
                 <?= $form->field($model, 'email') ?>

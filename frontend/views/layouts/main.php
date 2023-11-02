@@ -22,9 +22,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
@@ -40,6 +38,8 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+         ['label' => 'My Orders', 'url' => ['/orders/']]
+
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
@@ -63,13 +63,14 @@ AppAsset::register($this);
     ?>
 
 </header>
+<?= $this->render('_alert'); ?>
 
 <main role="main" class="flex-shrink-0">
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => $this->params['breadcrumbs'] ?? [],
         ]) ?>
-        <?= Alert::widget() ?>
+
         <?= $content ?>
     </div>
 </main>
