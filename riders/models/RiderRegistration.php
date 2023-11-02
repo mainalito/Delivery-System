@@ -25,6 +25,8 @@ use Yii;
  */
 class RiderRegistration extends \yii\db\ActiveRecord
 {
+    const SCENARIO_RIDER = 'rider_signup';
+
     /**
      * {@inheritdoc}
      */
@@ -32,7 +34,12 @@ class RiderRegistration extends \yii\db\ActiveRecord
     {
         return 'RiderRegistration';
     }
-
+//    public function scenarios()
+//    {
+//        $scenarios = parent::scenarios();
+//        $scenarios[self::SCENARIO_RIDER] = ['username', 'email', 'password', 'firstname', 'lastname'];
+//        return $scenarios;
+//    }
     /**
      * {@inheritdoc}
      */

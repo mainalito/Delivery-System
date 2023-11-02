@@ -20,15 +20,13 @@ class SignupForm extends Model
     public $usertypeid;
 
     const SCENARIO_CUSTOMER = 'customer_signup';
-    const SCENARIO_RIDER = 'rider_signup';
     const STATUS_USER = 1 ;//normal customer
     const STATUS_RIDER = 2 ;//rider
     // Set scenario-specific rules
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_CUSTOMER] = ['username', 'email', 'password', 'firstname', 'lastname', ];
-        $scenarios[self::SCENARIO_RIDER] = ['username', 'email', 'password', 'firstname', 'lastname',];
+        $scenarios[self::SCENARIO_CUSTOMER] = ['username', 'email', 'password', 'firstname', 'lastname'];
         return $scenarios;
     }
     /**
@@ -77,13 +75,8 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         // Assign usertype based on scenario
-        switch ($this->scenario) {
-            case self::SCENARIO_CUSTOMER:
-                $user->usertypeid = self::STATUS_USER;
-                break;
-            case self::SCENARIO_RIDER:
-                $user->usertypeid = self::STATUS_RIDER;
-                break;
+        if ($this->scenario == self::SCENARIO_CUSTOMER) {
+            $user->usertypeid = self::STATUS_USER;
         }
         if (!$user->save()) {
             VarDumper::dump($user->getErrors(), 10, true);

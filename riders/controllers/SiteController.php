@@ -106,8 +106,8 @@ class SiteController extends Controller
         }
     
         /* Get the number of new deliveries */
-        $ordersAssigned = ModelsOrders::find()
-            ->joinWith('riderRegistration')  
+        $ordersAssigned = Orders::find()
+            ->joinWith('rider')
             ->where(['riderRegistration.UserID' => isCurrentUser()])  
             ->count();
     

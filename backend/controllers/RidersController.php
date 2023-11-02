@@ -3,12 +3,10 @@
 namespace backend\controllers;
 
 use common\models\User;
-use frontend\models\Orders;
 use frontend\models\SignupForm;
 use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\db\Exception;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -27,6 +25,7 @@ class RidersController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
      * Displays a single Products model.
      * @param int $ID ID
@@ -35,7 +34,8 @@ class RidersController extends Controller
     public function actionView($ID)
     {
         $model = $this->findModel($ID);
-        $model->scenario = SignupForm::SCENARIO_RIDER;
+//        $model->scenario = RiderRegistration::SCENARIO_RIDER;
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 
@@ -58,22 +58,27 @@ class RidersController extends Controller
             'model' => $model,
         ]);
     }
+
     private function saveRider(RiderRegistration $model)
     {
         // Check if the user exists
         $user = User::findOne(['id' => $model->UserID]);
-$this->sendEmail($user);
+
         // If no user found and the model status is 1 (approved), create a new user
         if (!$user && $model->Status == 1) {
             $user = new User();
+
+            $user->firstname = $model->FirstName;
+            $user->lastname = $model->LastName;
+            $user->usertypeid = SignupForm::STATUS_RIDER;
             $user->generateAuthKey();
             $user->generateEmailVerificationToken();
 
             // Assign fields with unique username logic
-            $user->username = $model->FirstName . '_' . $this->generateRandomString();
+            $user->username = $model->FirstName . $this->generateRandomString();
 
             while (!$user->validate(['username'])) {
-                $user->username = $model->FirstName . '_' . $this->generateRandomString();
+                $user->username = $model->FirstName . $this->generateRandomString();
             }
 
             $user->setPassword(strtolower($model->LastName)); // Use the setPassword method you have in your User model
@@ -103,10 +108,11 @@ $this->sendEmail($user);
         // E.g., using Yii2's mailer component to send an email
         return true;
     }
+
     protected function sendEmail(User $user)
     {
-        try{
-            $response =  Yii::$app
+        try {
+            $response = Yii::$app
                 ->mailer
                 ->compose(
                     ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
@@ -116,11 +122,10 @@ $this->sendEmail($user);
                 ->setTo($user->email)
                 ->setSubject('Account registration at ' . Yii::$app->name)
                 ->send();
-            VarDumper::dump($response,10,true);exit;
-        }
-        catch (Exception $e)
-        {
-            VarDumper::dump($e->getMessage(), 10, true);exit;
+
+        } catch (Exception $e) {
+            VarDumper::dump($e->getMessage(), 10, true);
+            exit;
         }
     }
 
@@ -139,6 +144,7 @@ $this->sendEmail($user);
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
     private function generateRandomString($length = 4)
     {
         $characters = 'abcdefghijklmnopqrstuvwxyz';
