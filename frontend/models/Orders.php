@@ -14,12 +14,12 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $status
  * @property int|null $created_at
  * @property int|null $updated_at
- * @property int|null RiderConfirmation
- * @property string|null confrimed_at
- * @property string|null DateConfirmed
+ * @property int|null $RiderConfirmation
+ * @property string|null $confrimed_at
+ * @property string|null $DateConfirmed
  * @property Track[] $tracks
  * @property RiderRegistration $Rider
- * * @property User $user
+ * @property User $user
  */
 class Orders extends \yii\db\ActiveRecord
 {
