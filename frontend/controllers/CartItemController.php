@@ -68,6 +68,7 @@ class CartItemController extends Controller
     public function actionAdd()
     {
         $productId = \Yii::$app->request->post('id');
+
         $product = Products::findOne($productId);
 
         if (!$product) throw new NotFoundHttpException("Product doesn't exist " . $productId);
