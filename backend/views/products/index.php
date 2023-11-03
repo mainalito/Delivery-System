@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /** @var yii\web\View $this */
 /** @var frontend\models\ProductsSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -22,7 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,13 +35,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'ID',
             'product_name',
             'description',
-//            'image',
-            'price',
+            //            'image',
+            [
+                'attribute' => 'price',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return number_format($model->price, 2);
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Products $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'ID' => $model->ID]);
-                 }
+                }
             ],
         ],
     ]); ?>

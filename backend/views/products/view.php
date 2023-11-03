@@ -35,11 +35,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Image',
                 'format' => 'raw',
-                'value' => fn() => Html::img('@web/' . $model->image, ['class' => 'w-25 h-25'])
-                
+                'value' => fn () => Html::img('@web/' . $model->image, ['class' => 'w-25 h-25'])
+
             ],
 
-            'price',
+            [
+                'attribute' => 'price',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return number_format($model->price, 2);
+                }
+            ],
         ],
     ]) ?>
 

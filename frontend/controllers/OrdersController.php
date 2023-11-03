@@ -94,10 +94,16 @@ class OrdersController extends Controller
             $products[] = Products::find()->where(['ID' => $item->product_id])->one();
         }
         $numberOfProducts = count($products);
+        $totalCost = 0;
+        foreach($products as $product){
+            $amount = $product->price;
+            $totalCost += $amount;
+        }
         return $this->render('view', [
             'model' => $this->findModel($ID),
             'products' => $products,
             'numberOfProducts' => $numberOfProducts,
+            'totalCost' => $totalCost,
         ]);
     }
 
