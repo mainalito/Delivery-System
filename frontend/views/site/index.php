@@ -26,7 +26,7 @@ $this->title = 'Ecommerce Dashboard';
         <?php foreach ($products as $product) : ?>
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card h-100">
-                    <?= Html::img(Yii::getAlias('@web')  . $product->image, ['class' => 'card-img-top img-fluid', 'style' => 'height:200px; object-fit:cover;']); ?>
+                    <img class="card-img-top" src="<?=Yii::$app->params['backendUrl'].$product->image?>" alt="">
 
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= $product->product_name ?></h5>
