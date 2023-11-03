@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 case Orders::STATUS_PAID:
                     $badgeClass = 'badge-success';
                     $statusLabel = 'Paid';
-                    $dateLabel =$order->confirmed_at ? date('F j, Y', $order->confirmed_at) : 'N/A';
+                    $dateLabel =$order->confirmed_at ? date('F j, Y', strtotime($order->confirmed_at)) : 'N/A';
 
                     break;
                 case Orders::STATUS_SHIPPED:
