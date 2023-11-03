@@ -6,6 +6,7 @@ use frontend\models\CartItem;
 use frontend\models\Orders;
 use frontend\models\OrdersSearch;
 use frontend\models\Products;
+use riders\models\RiderRegistration;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -88,6 +89,7 @@ class OrdersController extends Controller
      */
     public function actionView($ID)
     {
+        $model = $this->findModel($ID);
         $items = CartItem::find()->where(['order_id' => $ID])->all();
         $products = [];
         foreach ($items as $item) {
@@ -99,11 +101,13 @@ class OrdersController extends Controller
             $amount = $product->price;
             $totalCost += $amount;
         }
+        $riderInformation = RiderRegistration::find()->where(['ID' => $model->Rider])->one();
         return $this->render('view', [
             'model' => $this->findModel($ID),
             'products' => $products,
             'numberOfProducts' => $numberOfProducts,
             'totalCost' => $totalCost,
+            'riderInformation' => $riderInformation
         ]);
     }
 
