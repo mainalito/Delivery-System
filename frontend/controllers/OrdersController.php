@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\CartItem;
 use frontend\models\Orders;
 use frontend\models\OrdersSearch;
 use Yii;
@@ -85,6 +86,7 @@ class OrdersController extends Controller
      */
     public function actionView($ID)
     {
+        $products = CartItem::find()->where(['order_id' => $ID])->all();
         return $this->render('view', [
             'model' => $this->findModel($ID),
         ]);
