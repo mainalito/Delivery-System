@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 case Orders::STATUS_PAID:
                     $badgeClass = 'badge-success';
                     $statusLabel = 'Paid';
-                    $dateLabel =$order->confirmed_at ? date('F j, Y', $order->confirmed_at) : 'N/A';
+                    $dateLabel =$order->confirmed_at ? date('F j, Y', strtotime($order->confirmed_at)) : 'N/A';
 
                     break;
                 case Orders::STATUS_SHIPPED:
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <div class="col-md-4 col-lg-4 d-flex align-items-center justify-content-end pr-3">
-                        <a href="<?= Html::encode(Url::to(['orders/view', 'id' => $order->ID])) ?>"
+                        <a href="<?= Html::encode(Url::to(['view', 'ID' => $order->ID])) ?>"
                            class="btn btn-outline-primary btn-sm">
                             See Details
                         </a>

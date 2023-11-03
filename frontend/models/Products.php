@@ -17,6 +17,8 @@ use Yii;
  */
 class Products extends \yii\db\ActiveRecord
 {
+    /**      * @var UploadedFile */
+    public $upload_image;
     /**
      * {@inheritdoc}
      */
@@ -33,6 +35,7 @@ class Products extends \yii\db\ActiveRecord
         return [
             [['image'], 'string'],
             [['price'], 'number'],
+            [['upload_image'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
             [['product_name', 'description'], 'string', 'max' => 250],
         ];
     }
@@ -59,5 +62,26 @@ class Products extends \yii\db\ActiveRecord
     public function getCartItems()
     {
         return $this->hasMany(CartItem::class, ['product_id' => 'ID']);
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+
+            $uploadDir = 'uploads/';
+
+            // Check if the directory exists, and if not, create it
+            if (!file_exists($uploadDir) && !is_dir($uploadDir)) {
+                // The second parameter sets the permissions and the third parameter allows the creation of nested directories
+                if (!mkdir($uploadDir, 0777, true)) {
+                    throw new \Exception('Failed to create folders...');
+                }
+            }
+            $NewBaseName = Yii::$app->getSecurity()->generateRandomString(7) . time();
+            $this->upload_image->saveAs($uploadDir . $NewBaseName . '.' . $this->upload_image->extension);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

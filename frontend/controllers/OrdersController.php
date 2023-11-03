@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use frontend\models\CartItem;
 use frontend\models\Orders;
 use frontend\models\OrdersSearch;
+use frontend\models\Products;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -49,7 +50,8 @@ class OrdersController extends Controller
         ]);
     }
 
-    public function actionAddToCart() {
+    public function actionAddToCart()
+    {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         // Get the raw JSON string from the POST data
@@ -58,8 +60,8 @@ class OrdersController extends Controller
         // Convert JSON string to PHP associative array
         $cartData = json_decode($rawData, true);
         // At this point, $cartData should be an associative array where the keys are product IDs and the values are quantities
-        if(is_array($cartData)) {
-            foreach($cartData as $productId => $quantity) {
+        if (is_array($cartData)) {
+            foreach ($cartData as $productId => $quantity) {
                 // Now you can handle each product ID and quantity pair accordingly
                 // For instance, add them to the cart, update the cart, etc.
 
@@ -86,9 +88,16 @@ class OrdersController extends Controller
      */
     public function actionView($ID)
     {
-        $products = CartItem::find()->where(['order_id' => $ID])->all();
+        $items = CartItem::find()->where(['order_id' => $ID])->all();
+        $products = [];
+        foreach ($items as $item) {
+            $products[] = Products::find()->where(['ID' => $item->product_id])->one();
+        }
+        $numberOfProducts = count($products);
         return $this->render('view', [
             'model' => $this->findModel($ID),
+            'products' => $products,
+            'numberOfProducts' => $numberOfProducts,
         ]);
     }
 

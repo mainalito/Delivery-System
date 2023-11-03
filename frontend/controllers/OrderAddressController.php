@@ -133,7 +133,7 @@ class OrderAddressController extends Controller
         if (!$order) throw new NotFoundHttpException('No order was found');
 
         $order->status = Orders::STATUS_PAID;
-        $order->confirmed_at = date('Y:m:d H:i:s');
+        $order->confirmed_at = date('Y-m-d H:i:s');
         if ($order->save()) {
             Yii::$app->session->setFlash('success', 'wYour order was successfully placed');
             return $this->redirect('/site/');

@@ -76,16 +76,13 @@ class ProductsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->upload_image = UploadedFile::getInstance($model, 'upload_image');
-
+                $model->image = UploadedFile::getInstance($model, 'upload_image');
                 if ($model->save() && $model->upload()) {
                     Yii::$app->session->setFlash('success', 'Added product successfully');
                     return $this->redirect(['view', 'ID' => $model->ID]);
                 }
                 Yii::$app->session->setFlash('error', 'Failed to add a product');
                 $model->loadDefaultValues();
-
-
             }
         } else {
             $model->loadDefaultValues();
@@ -95,6 +92,7 @@ class ProductsController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing Products model.
@@ -107,8 +105,21 @@ class ProductsController extends Controller
     {
         $model = $this->findModel($ID);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'ID' => $model->ID]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $model->image = UploadedFile::getInstance($model, 'upload_image');
+                if (!$model->save()) {
+                    var_dump($model->getErrors()) . exit();
+                }
+                if ($model->save() && $model->upload()) {
+                    Yii::$app->session->setFlash('success', 'Added product successfully');
+                    return $this->redirect(['view', 'ID' => $model->ID]);
+                }
+                Yii::$app->session->setFlash('error', 'Failed to add a product');
+                $model->loadDefaultValues();
+            }
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('update', [
