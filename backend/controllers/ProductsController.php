@@ -76,7 +76,7 @@ class ProductsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->image = UploadedFile::getInstance($model, 'upload_image');
+                $model->upload_image = UploadedFile::getInstance($model, 'upload_image');
                 if ($model->save() && $model->upload()) {
                     Yii::$app->session->setFlash('success', 'Added product successfully');
                     return $this->redirect(['view', 'ID' => $model->ID]);
@@ -107,7 +107,7 @@ class ProductsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->image = UploadedFile::getInstance($model, 'upload_image');
+                $model->upload_image = UploadedFile::getInstance($model, 'upload_image');
                 if (!$model->save()) {
                     var_dump($model->getErrors()) . exit();
                 }
@@ -136,10 +136,29 @@ class ProductsController extends Controller
      */
     public function actionDelete($ID)
     {
-        $this->findModel($ID)->delete();
+        $model = $this->findModel($ID);
+
+        // Assuming 'image' attribute of your model holds the relative path to the file
+        $imagePath = Yii::getAlias('@webroot') . '/' . $model->image;
+
+        // Check if the file exists and delete it
+        if (file_exists($imagePath)) {
+            if (!unlink($imagePath)) {
+                Yii::$app->session->setFlash('error', 'Error deleting image file.');
+                return $this->redirect(['index']);
+            }
+        }
+
+        // Delete the model
+        if ($model->delete()) {
+            Yii::$app->session->setFlash('success', 'The product and its image have been deleted.');
+        } else {
+            Yii::$app->session->setFlash('error', 'Error deleting the product.');
+        }
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Products model based on its primary key value.

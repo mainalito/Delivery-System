@@ -19,6 +19,7 @@ class Products extends \yii\db\ActiveRecord
 {
     /**      * @var UploadedFile */
     public $upload_image;
+
     /**
      * {@inheritdoc}
      */
@@ -78,7 +79,10 @@ class Products extends \yii\db\ActiveRecord
                 }
             }
             $NewBaseName = Yii::$app->getSecurity()->generateRandomString(7) . time();
-            $this->upload_image->saveAs($uploadDir . $NewBaseName . '.' . $this->upload_image->extension);
+            $fullPath = $uploadDir . $NewBaseName . '.' . $this->upload_image->extension;
+            $this->upload_image->saveAs($fullPath);
+            $this->image = $fullPath;
+            $this->save(false);
             return true;
         } else {
             return false;
