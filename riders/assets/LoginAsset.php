@@ -9,12 +9,12 @@ use yii\web\JqueryAsset;
 /**
  * Main riders application asset bundle.
  */
-class RiderAsset extends AssetBundle
+class LoginAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $basePath = '@webroot/riders/';
+    public $baseUrl = '@web/riders/';
     public $css = [
-      
+      'riders.css'
     ];
     public $js = [
         'https://cdn.jsdelivr.net/npm/sweetalert2@11',
@@ -27,5 +27,6 @@ class RiderAsset extends AssetBundle
          'yii\bootstrap4\BootstrapAsset',
 
     ];
+    public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 }
 

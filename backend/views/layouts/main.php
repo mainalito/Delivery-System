@@ -80,6 +80,12 @@ AppAsset::register($this);
                     <span>Riders</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo \yii\helpers\Url::to(['/documents/']) ?>">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Document</span>
+                </a>
+            </li>
 
 
             <!-- Divider -->
