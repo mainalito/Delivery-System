@@ -120,4 +120,13 @@ return array (
       '@yidas/yii/fontawesome' => $vendorDir . '/yidas/yii2-fontawesome/src',
     ),
   ),
+  'kartik-v/yii2-widget-fileinput' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-fileinput',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@kartik/file' => $vendorDir . '/kartik-v/yii2-widget-fileinput/src',
+    ),
+  ),
 );

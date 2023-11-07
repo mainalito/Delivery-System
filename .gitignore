@@ -6,4 +6,8 @@ protected/data/*.db
 themes/classic/views/
 .idea/*
 
+/riders/web/documents/
+/backend/web/uploads/*
+/vendor/*
+
 

@@ -54,7 +54,9 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
         'k' => 
         array (
             'kartik\\select2\\' => 15,
+            'kartik\\plugins\\fileinput\\' => 25,
             'kartik\\plugins\\depdrop\\' => 23,
+            'kartik\\file\\' => 12,
             'kartik\\depdrop\\' => 15,
             'kartik\\bs4dropdown\\' => 19,
             'kartik\\base\\' => 12,
@@ -198,9 +200,17 @@ class ComposerStaticInita4d0852da69e6541ec31f428835de34e
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2',
         ),
+        'kartik\\plugins\\fileinput\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/bootstrap-fileinput',
+        ),
         'kartik\\plugins\\depdrop\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/dependent-dropdown',
+        ),
+        'kartik\\file\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-fileinput/src',
         ),
         'kartik\\depdrop\\' => 
         array (
