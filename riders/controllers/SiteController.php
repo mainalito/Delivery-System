@@ -26,7 +26,7 @@ use yii\web\Controller;
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends BaseController
 {
     /**
      * @throws BadRequestHttpException
@@ -55,10 +55,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'login'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],

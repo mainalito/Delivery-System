@@ -2,13 +2,14 @@
 
 namespace riders\controllers;
 
+use Faker\Provider\Base;
 use riders\models\SubCounties;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
-class DropDownController extends Controller
+class DropDownController extends BaseController
 {
     private $dependencyDropdownFirstParam;
 
