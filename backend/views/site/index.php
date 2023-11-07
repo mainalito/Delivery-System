@@ -12,6 +12,7 @@
 /** @var array $countriesData */
 /** @var int $totalRiders */
 /** @var array $bgColors */
+/** @var yii\web\View $this */
 
 $this->title = 'My Yii Application';
 ?>
