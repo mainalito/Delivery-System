@@ -55,15 +55,15 @@ $datePlaced = date('F j, Y', strtotime($model->confirmed_at));
                             $price = number_format($product->price);
                             $imageUrl = Yii::$app->params['backendUrl'] . $product->image;
                             ?>
-                            <div class="card mb-3 shadow-sm">
+                            <div class="media mb-3 shadow-sm">
                                 <div class="row no-gutters">
                                     <div class="col-md-4 col-lg-4">
                                         <!-- Display the product image -->
-                                        <?= Html::img($imageUrl, ['class' => 'w-50']) ?>
+                                        <?= Html::img($imageUrl, ['class' => 'w-50 ']) ?>
                                     </div>
                                     <div class="col-md-8 col-lg-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><?= Html::encode($name) ?></h5>
+                                        <div class="media-body">
+                                            <h5 class="media-heading"><?= Html::encode($name) ?></h5>
                                             <p>
                                                 <i class="fas fa-info-circle"></i>
                                                 Description: <?= Html::encode($description) ?>

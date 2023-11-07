@@ -2,6 +2,7 @@
 
 /** @var yii\web\View $this */
 
+use riders\assets\LoginAsset;
 use riders\assets\RiderAsset;
 
 use yii\bootstrap4\ActiveForm;
@@ -9,7 +10,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = 'Ecommerce';
-RiderAsset::register($this);
+LoginAsset::register($this);
+
 ?>
 
 <!--<div style="display: flex; justify-content: center; align-items: center; height: 20vh;">-->

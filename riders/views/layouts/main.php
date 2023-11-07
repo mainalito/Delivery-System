@@ -4,6 +4,7 @@
 
 use riders\assets\AppAsset;
 use riders\assets\RiderAsset;
+use riders\models\RiderRegistration;
 use yii\bootstrap4\Alert;
 use yii\web\View;
 
@@ -43,7 +44,7 @@ AppAsset::register($this);
                 <!--            <div class="sidebar-brand-icon rotate-n-15">-->
                 <!--                <i class="fas fa-laugh-wink"></i>-->
                 <!--            </div>-->
-                <div class="sidebar-brand-text mx-3"><?= Html::encode(Yii::$app->name) ?>   </div>
+                <div class="sidebar-brand-text mx-3"><?= Html::encode(Yii::$app->name) ?> </div>
             </a>
 
             <!-- Divider -->
@@ -60,10 +61,18 @@ AppAsset::register($this);
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo \yii\helpers\Url::to(['/orders/']) ?>">
+                <a class="nav-link" href="<?php echo Url::to(['/orders/']) ?>">
                     <i class="fas fa-fw fa-motorcycle"></i>
                     <span>Deliveries Assigned</span>
                 </a>
+                <a class="nav-link" href="<?= Url::to([
+                                                'rider-registration/view',
+                                                'ID' => isCurrentUser()
+                                            ]) ?>">
+                    <i class="fas fa-user fa-sm fa-fw "></i>
+                    Profile
+                </a>
+
             </li>
 
 
@@ -102,20 +111,12 @@ AppAsset::register($this);
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     <?php echo Yii::$app->user->identity->username ?>
                                 </span>
-                                <img class="img-profile rounded-circle" src="/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="<?= RiderRegistration::getUserImage(Yii::$app->user->id) ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?=Url::to([
-                                    'rider-registration/update',
-                                    'UserID'=>isCurrentUser()])?>">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
+
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -139,6 +140,7 @@ AppAsset::register($this);
                 <?= $this->render('_alert'); ?>
 
                 <div class="p-4">
+
                     <?php echo $content ?>
                 </div>
 

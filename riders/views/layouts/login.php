@@ -1,12 +1,14 @@
 <?php
 /** @var View $this */
 
+use yii\bootstrap4\BootstrapAsset;
 use yii\web\View;
 
 /** @var string $content */
 
 use yii\helpers\Html;
 \riders\assets\RiderAsset::register($this);
+BootstrapAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -21,7 +23,8 @@ use yii\helpers\Html;
 <body>
 <?php $this->beginBody() ?>
     
-<div class="container">
+<div class="container-fluid">
+    
     <?= $content ?>
 </div>
 
