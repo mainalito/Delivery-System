@@ -1,5 +1,6 @@
 <?php
 
+use riders\models\RiderRegistration;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -14,25 +15,28 @@ $this->title = $model->FirstName;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-<!--    <p>-->
-<!--        --><?php //= Html::a('Update', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
-<!--        --><?php //= Html::a('Delete', ['delete', 'ID' => $model->ID], [
-//            'class' => 'btn btn-danger',
-//            'data' => [
-//                'confirm' => 'Are you sure you want to delete this item?',
-//                'method' => 'post',
-//            ],
-//        ]) ?>
-<!--    </p>-->
+    <!-- <p>-->
+    <?= Html::a('Update', ['update', 'UserID' => isCurrentUser()], ['class' => 'btn btn-primary mb-2']) ?>
+    <!--        --><?php //= Html::a('Delete', ['delete', 'ID' => $model->ID], [
+                    //            'class' => 'btn btn-danger',
+                    //            'data' => [
+                    //                'confirm' => 'Are you sure you want to delete this item?',
+                    //                'method' => 'post',
+                    //            ],
+                    //        ]) 
+                    ?>
+    <!--    </p> -->
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'IdentificationNumber',
-            ['label' => 'Rider Full Name', 'value' => fn()=>
-                 $model->FirstName . ' ' . $model->LastName
+            [
+                'label' => 'Rider Full Name', 'value' => fn () =>
+                $model->FirstName . ' ' . $model->LastName
             ],
-            ['label'=>'Vehicle','value'=>fn()=> $model->vehicle->Type,
+            [
+                'label' => 'Vehicle', 'value' => fn () => $model->vehicle->Type,
             ],
             'VehicleRegistration',
             [
@@ -54,5 +58,43 @@ $this->title = $model->FirstName;
 
         ],
     ]) ?>
+
+    <?php if (!empty($Documents)) : ?>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Document Name</th>
+                        <th>Documents</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $documentsGroupedByName = [];
+
+                    foreach ($Documents as $document) {
+                        $documentsGroupedByName[$document->document->DocumentName][] = $document;
+                    }
+
+                    foreach ($documentsGroupedByName as $docName => $docs) : ?>
+                        <tr>
+                            <td><?= Html::encode($docName) ?></td>
+                            <td>
+                                <?php foreach ($docs as $doc) : ?>
+                                    <?php if (str_ends_with($doc->DocumentLink, '.jpg')) : ?>
+                                        <img class='w-25 h-25 mr-2' src="<?= RiderRegistration::getUserImage(Yii::$app->user->id) ?>" alt="">
+                                    <?php else : ?>
+                                        <?= Html::a('View Document', ['view-attachments', 'ref' => $doc->ID], ['target' => '_blank', 'class' => 'mr-2']) ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
+
+
 
 </div>
