@@ -2,18 +2,27 @@
 
 namespace riders\controllers;
 
+use backend\models\Documents;
 use common\models\User;
 use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
+use riders\models\RidersDocument;
 use Yii;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
+use yii\helpers\Json;
+use yii\helpers\VarDumper;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * RiderRegistrationController implements the CRUD actions for RiderRegistration model.
  */
-class RiderRegistrationController extends Controller
+class RiderRegistrationController extends BaseController
 {
     /**
      * @inheritDoc
@@ -23,16 +32,29 @@ class RiderRegistrationController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['create'],
+                            'allow' => true,
+                            'roles' => ['?'], // Allow guests
+                        ],
+                      
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        // You can specify other HTTP method restrictions for other actions if necessary
                     ],
                 ],
             ]
         );
     }
-
+    
+    
     /**
      * Lists all RiderRegistration models.
      *
@@ -57,8 +79,13 @@ class RiderRegistrationController extends Controller
      */
     public function actionView($ID)
     {
+        $rider = RiderRegistration::find()->where(['UserID' => $ID])->one();
+        if (!$rider) throw new NotFoundHttpException('You are not allowed to access this services');
+        $Documents = RidersDocument::find()->where(['RiderID' => $rider->ID])->all();
+
         return $this->render('view', [
-            'model' => $this->findModel($ID),
+            'model' => $rider,
+            'Documents' => $Documents
         ]);
     }
 
@@ -69,13 +96,32 @@ class RiderRegistrationController extends Controller
      */
     public function actionCreate()
     {
+        if (isCurrentUser()) {
+            // Log the user out
+            Yii::$app->user->logout();
+
+            // Optionally, you can redirect the user to the login page
+            return $this->goHome(); // or use $this->redirect(['site/login']);
+        }
         $this->layout = 'login';
 
         $model = new RiderRegistration();
+        $documentTypes = Documents::find()->all();
+
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+
+                $model->Uploadfiles = UploadedFile::getInstances($model, 'Uploadfiles');
+                $model->Uploadfile = UploadedFile::getInstance($model, "Uploadfile[$model->documentType]");
+
                 if ($model->validate() && $model->save()) {
+                    if ($model->Uploadfile) {
+                        $document = new RidersDocument();
+                        $document->DocumentTypeID = $model->documentType;
+                        $document->RiderID = $model->ID;
+                        $document->DocumentLink = $this->uploadDocument('riders', $model->Uploadfile);
+                    }
                     Yii::$app->session->setFlash(' success', ' Details have been successfully submitted for review.');
                     return $this->redirect(['/']);
                 }
@@ -85,10 +131,28 @@ class RiderRegistrationController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $model, 'documentTypes' => $documentTypes
         ]);
     }
+    public function uploadDocument($FolderName, $doc)
+    {
 
+        $NewBaseName = time() . Yii::$app->getSecurity()->generateRandomString(7);
+        $dir = Yii::getAlias('@webroot/documents/' . $FolderName);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true); // This creates the directory with 0777 permissions recursively
+        }
+        $destination = $dir . '/' . $NewBaseName . '.' . $doc->extension;
+
+
+        if ($doc->saveAs($destination)) {
+            return $NewBaseName . '.' . $doc->extension;
+        } else {
+            // Add error logging or handling here
+            var_dump("Failed to save document: " . $doc->error);
+            return false;
+        }
+    }
     /**
      * Updates an existing RiderRegistration model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -101,17 +165,97 @@ class RiderRegistrationController extends Controller
 
         $model = $this->findUser($UserID);
         $user = User::find()->where(['id' => $UserID])->one();
+        $documentTypes = Documents::find()->all();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $user->load($this->request->post()) && $model->save() && $user->save()) {
-            Yii::$app->session->setFlash('success','Your Details were updated successfully');
-            return $this->redirect(['view', 'ID' => $model->ID]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $user->load($this->request->post())) {
+                // VarDumper::dump(UploadedFile::getInstances($model, 'Uploadfiles'),10,true);exit;
+
+                if ($model->save() && $user->save()) {
+                    foreach ($documentTypes as $docType) {
+                        if ($docType->Multiple) {
+                            // Handle multiple file uploads
+                            $uploadedFiles = UploadedFile::getInstances($model, "Uploadfiles[{$docType->ID}]");
+                            foreach ($uploadedFiles as $file) {
+                                if ($file) {
+                                    $document  = RidersDocument::find()->where(["RiderID" => $model->ID, 'DocumentTypeID' => $docType->ID])->one();
+                                    if (!$document) {
+                                        $document = new RidersDocument();
+                                        $document->DocumentTypeID = $docType->ID;
+                                        $document->RiderID = $model->ID;
+                                    }
+
+                                    $document->DocumentLink = $this->uploadDocument('riders', $file);
+                                    if (!$document->save()) {
+                                        VarDumper::dump($document->getErrors(), 10, true);
+                                        var_dump('first');
+                                        exit;
+                                    }
+                                }
+                            }
+                        } else {
+                            // Handle single file upload
+                            $uploadedFile = UploadedFile::getInstance($model, "Uploadfile[{$docType->ID}]");
+
+                            if ($uploadedFile) {
+                                $document  = RidersDocument::find()->where(["RiderID" => $model->ID, 'DocumentTypeID' => $docType->ID])->one();
+                                if (!$document) {
+                                    $document = new RidersDocument();
+                                    $document->DocumentTypeID = $docType->ID;
+                                    $document->RiderID = $model->ID;
+                                }
+
+                                $document->DocumentLink = $this->uploadDocument('riders', $uploadedFile);
+                                if (!$document->save()) {
+                                    VarDumper::dump($document->getErrors(), 10, true);
+                                    exit;
+                                }
+                            }
+                        }
+                    }
+
+
+
+                    Yii::$app->session->setFlash('success', 'Your Details were updated successfully');
+                    return $this->redirect(['view', 'ID' => $model->ID]);
+                }
+                VarDumper::dump($model->getErrors());
+                exit;
+
+                Yii::$app->session->setFlash('error', 'Failed to update your details');
+            }
         }
-        Yii::$app->session->setFlash('error','Failed to update your details');
-
-        return $this->renderAjax('update', [
-            'model' => $model, 'user' => $user
+        return $this->render('update', [
+            'model' => $model, 'user' => $user, 'documentTypes' => $documentTypes
         ]);
     }
+    public function actionViewAttachments($ref)
+    {
+        // Retrieve the document model using the ID provided in the request
+        $documentModel = RidersDocument::findOne($ref);
+        if (!$documentModel) {
+            throw new NotFoundHttpException('The requested document does not exist.');
+        }
+
+        // Assuming the DocumentLink attribute contains the filename of the document
+        $documentFile = $documentModel->DocumentLink;
+        $filePath = Yii::getAlias('@riders/web/documents/riders/') . $documentFile;
+
+        if (!file_exists($filePath) || !is_readable($filePath)) {
+            throw new NotFoundHttpException('The file does not exist or cannot be read.');
+        }
+
+        // Detect the correct MIME type of the file
+        $mimeType = FileHelper::getMimeType($filePath);
+
+        // Send the file to the browser
+        return Yii::$app->response->sendFile($filePath, $documentFile, [
+            'mimeType' => $mimeType,
+            'inline' => true // This will attempt to display the file inline if the browser is capable
+        ]);
+    }
+
+
 
     /**
      * Deletes an existing RiderRegistration model.
@@ -130,7 +274,6 @@ class RiderRegistrationController extends Controller
     public function actionReviewOrder($id)
     {
         $id = base64_decode($id);
-
     }
 
     /**
