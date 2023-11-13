@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = ['label' => 'orders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="container fluid">
+<div class="container-fluid">
     <div class="row">
         <!-- Left Column -->
         <div class="col-md-8">

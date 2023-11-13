@@ -31,7 +31,7 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet'/>
 
 
-<div class="container fluid">
+<div class="container-fluid">
     <div class="row">
         <!-- Left Column -->
         <div class="col-md-8">
@@ -135,7 +135,7 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
                         <?= Html::submitButton("Submit", [
                             'class' => 'btn btn-primary btn-block',
                             'data' => [
-                                'confirm' => 'Are you are sure you want to proceed?',
+                                'confirm' => 'Are you are sure you want to proceed with the delivery?',
                                 'method' => 'post',
                             ]
                         ]); ?>

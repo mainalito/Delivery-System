@@ -111,7 +111,6 @@ AppAsset::register($this);
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     <?php echo Yii::$app->user->identity->username ?>
                                 </span>
-                                <img class="img-profile rounded-circle" src="<?= RiderRegistration::getUserImage(Yii::$app->user->id) ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

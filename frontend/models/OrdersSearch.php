@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -39,7 +40,7 @@ class OrdersSearch extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find()->where(['status' => [Orders::STATUS_PAID, Orders::STATUS_SHIPPED, Orders::STATUS_COMPLETED]]);
+        $query = Orders::find()->where(['status' => [Orders::STATUS_PAID, Orders::STATUS_SHIPPED, Orders::STATUS_COMPLETED]])->andWhere(['user_id' => Yii::$app->user->identity->id]);
 
         // add conditions that should always apply here
 
