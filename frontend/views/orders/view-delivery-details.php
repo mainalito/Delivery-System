@@ -1,9 +1,23 @@
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-header bg-warning text-black">
-            <h4>Delivery Details for Order No. <?= $model->ID ?></h4>
-        </div>
-        <div class="card-body">
+    <!-- <div class="card"> -->
+        <!-- <div class="card-header bg-warning text-black"> -->
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                <h4>Delivery Details for Order No. <?= $model->ID ?></h4>
+
+                </div>
+                <div class="col-md-6">
+                <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+
+            </div>
+            <br>
+            <hr>
+        <!-- </div> -->
+        <!-- <div class="card-body"> -->
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-icon">
@@ -54,7 +68,7 @@
             </div>
         </div>
 
-    </div>
+    <!-- </div> -->
 </div>
 <style>
     @keyframes bounce {
@@ -107,3 +121,13 @@
     /* Adjust the font size as needed */
 }
 </style>
+<script>
+    // Close modal logic
+    var closeBtn = document.querySelector('.modal .close');
+    closeBtn.onclick = function() {
+        var modal = document.getElementById('deliveryDetailsModal');
+        modal.style.display = 'none';
+    };
+
+    // Rest of your modal logic...
+</script>
