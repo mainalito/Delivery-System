@@ -4,6 +4,7 @@ namespace riders\controllers;
 
 use backend\models\Documents;
 use common\models\User;
+use Exception;
 use riders\models\RiderRegistration;
 use riders\models\RiderRegistrationSearch;
 use riders\models\RidersDocument;
@@ -15,8 +16,10 @@ use yii\helpers\Json;
 use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
 /**
@@ -34,13 +37,15 @@ class RiderRegistrationController extends BaseController
             [
                 'access' => [
                     'class' => AccessControl::class,
+                    'only' => ['create'],
+
                     'rules' => [
                         [
                             'actions' => ['create'],
                             'allow' => true,
                             'roles' => ['?'], // Allow guests
                         ],
-                      
+
                     ],
                 ],
                 'verbs' => [
@@ -53,8 +58,8 @@ class RiderRegistrationController extends BaseController
             ]
         );
     }
-    
-    
+
+
     /**
      * Lists all RiderRegistration models.
      *
@@ -64,12 +69,13 @@ class RiderRegistrationController extends BaseController
     {
         $searchModel = new RiderRegistrationSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
+   
 
     /**
      * Displays a single RiderRegistration model.
@@ -165,6 +171,8 @@ class RiderRegistrationController extends BaseController
 
         $model = $this->findUser($UserID);
         $user = User::find()->where(['id' => $UserID])->one();
+
+        if(isCurrentUser() != $user->id) throw new ForbiddenHttpException('You are not allowed to perform such action');
         $documentTypes = Documents::find()->all();
 
         if ($this->request->isPost) {
@@ -217,7 +225,7 @@ class RiderRegistrationController extends BaseController
 
 
                     Yii::$app->session->setFlash('success', 'Your Details were updated successfully');
-                    return $this->redirect(['view', 'ID' => $model->ID]);
+                    return $this->redirect(['view', 'ID' => $user->id]);
                 }
                 VarDumper::dump($model->getErrors());
                 exit;

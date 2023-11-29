@@ -34,6 +34,8 @@ class RidersController extends Controller
     public function actionView($ID)
     {
         $model = $this->findModel($ID);
+        $user = User::findOne(['id' => $model->UserID]);
+
 //        $model->scenario = RiderRegistration::SCENARIO_RIDER;
 
         if ($this->request->isPost) {
@@ -42,6 +44,7 @@ class RidersController extends Controller
                 if ($model->save()) {
 
                     $this->saveRider($model);
+                    self::sendEmail($user);
                     //send notification to rider
                     //create for him login details in user table
                     // set a default password based on firstname or lastname
@@ -112,10 +115,10 @@ class RidersController extends Controller
     protected function sendEmail(User $user)
     {
         try {
-            $response = Yii::$app
+            return Yii::$app
                 ->mailer
                 ->compose(
-                    ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                    ['html' => 'riderVerify-html'],
                     ['user' => $user]
                 )
                 ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])

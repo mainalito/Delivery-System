@@ -128,6 +128,11 @@
       <path value="$PROJECT_DIR$/vendor/npm-asset/toastr" />
       <path value="$PROJECT_DIR$/vendor/npm-asset/jquery" />
       <path value="$PROJECT_DIR$/vendor/diecoding/yii2-toastr" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/bootstrap-fileinput" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-fileinput" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4">

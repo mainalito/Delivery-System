@@ -23,12 +23,9 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
 
 ?>
 
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap"
-        defer
-></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap" defer></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet'/>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
 
 
 <div class="container fluid">
@@ -121,52 +118,49 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
                     </div>
                 </div>
             <?php endif; ?>
-<!--             Check if the order is paid but not confirmed by the rider-->
+            <!--             Check if the order is paid but not confirmed by the rider-->
             <?php
-            if ($order->status == Orders::STATUS_PAID && $order->RiderConfirmation != 1):
+            if ($order->status == Orders::STATUS_PAID && $order->RiderConfirmation != 1) :
             ?>
-            <!-- Assign Rider -->
-            <div class="card">
-                <div class="card-header bg-warning text-dark">Acknowledge Delivery</div>
-                <div class="card-body">
-                    <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($order, 'RiderConfirmation')->dropDownList(ArrayHelper::map(ConfirmationStatus::find()->all(), 'ID', 'Status'), ['prompt' => 'Select Confirmation Status'])->label(false) ?>
-                    <div class="form-group">
-                        <?= Html::submitButton("Submit", [
-                            'class' => 'btn btn-primary btn-block',
-                            'data' => [
-                                'confirm' => 'Are you are sure you want to proceed?',
-                                'method' => 'post',
-                            ]
-                        ]); ?>
+                <!-- Assign Rider -->
+                <div class="card">
+                    <div class="card-header bg-warning text-dark">Acknowledge Delivery</div>
+                    <div class="card-body">
+                        <?php $form = ActiveForm::begin(); ?>
+                        <?= $form->field($order, 'RiderConfirmation')->dropDownList(ArrayHelper::map(ConfirmationStatus::find()->all(), 'ID', 'Status'), ['prompt' => 'Select Confirmation Status'])->label(false) ?>
+                        <div class="form-group">
+                            <?= Html::submitButton("Submit", [
+                                'class' => 'btn btn-primary btn-block',
+                                'data' => [
+                                    'confirm' => 'Are you are sure you want to proceed?',
+                                    'method' => 'post',
+                                ]
+                            ]); ?>
+                        </div>
+                        <?php ActiveForm::end(); ?>
                     </div>
-                    <?php ActiveForm::end(); ?>
                 </div>
-            </div>
-            <?php else: ?>
-            <!-- Show a confirmation message -->
-            <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Order Confirmed!</h4>
-                <p>You have already confirmed order number <?= Html::encode($order->ID) ?>.</p>
-                <hr>
-                <p class="mb-0">Thank you for confirming the delivery. Your acknowledgement has been recorded.</p>
-            </div>
+            <?php else : ?>
+                <!-- Show a confirmation message -->
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Order Confirmed!</h4>
+                    <p>You have already confirmed order number <?= Html::encode($order->ID) ?>.</p>
+                    <hr>
+                    <p class="mb-0">Thank you for confirming the delivery. Your acknowledgement has been recorded.</p>
+                </div>
             <?php endif; ?>
 
         </div>
     </div>
     <div id="map" style="width: 100%; height: 500px;"></div>
     <script>
-        let googleApiKey = 'AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao';
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent('kisumu')}&key=${googleApiKey}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.results && data.results.length > 0) {
-                    let location = data.results[0].geometry.location;
-                    // Use location.lat and location.lng for the exact coordinates
-                }
-            });
-
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhbGl0byIsImEiOiJjbDY1ZmoybmgwNWlmM2JxZ29wbzN2Y2dxIn0.7xk12C-uVClh4uSRva0x0w';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            center: [-1.3914732517370227, 36.75985297670989], // starting position [lng, lat]
+            zoom: 9 // starting zoom
+        });
     </script>
 
 </div>

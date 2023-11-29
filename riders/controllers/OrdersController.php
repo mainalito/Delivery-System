@@ -2,6 +2,7 @@
 
 namespace riders\controllers;
 
+use Exception;
 use frontend\models\CartItem;
 use frontend\models\Orders;
 use frontend\models\Products;
@@ -14,6 +15,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
 
 /**
  * OrdersController implements the CRUD actions for Orders model.
@@ -47,12 +49,34 @@ class OrdersController extends BaseController
     {
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        // $this->sendEmail();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+    protected
+    function sendEmail()
+    {
+
+        try{
+            Yii::$app->mailer->compose()
+                ->setFrom('chalito@mailinator.com')
+                ->setTo('gojo@mailinator.com')
+                ->setSubject('Message subject')
+                ->setTextBody('Plain text content')
+                ->setHtmlBody('<b>HTML content</b>')
+                ->send();
+
+        }
+        catch(Exception $ex){
+            $message = $ex->getMessage();
+            
+            throw new ServerErrorHttpException($message, '500');
+        }
+    }
+
 
     public function actionAddToCart() {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

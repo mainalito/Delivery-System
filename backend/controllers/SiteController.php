@@ -89,7 +89,7 @@ class SiteController extends Controller
             ->sum(new Expression('c.quantity'));
         $totalOrders = count($confirmedOrderIds);
         $totalUsers = User::find()->count();
-        $totalRiders = RiderRegistration::find()->where(['not', ['UserID' => null]])->count();
+        $totalRiders = RiderRegistration::find()->where(['not', ['UserID' => null,'Status'=>1]])->count();
 
 
         return $this->render('index', ['totalEarnings' => $totalEarnings,

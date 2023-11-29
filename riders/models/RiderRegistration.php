@@ -5,6 +5,7 @@ namespace riders\models;
 use backend\models\Documents;
 use common\models\User;
 use Yii;
+use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
 
@@ -119,8 +120,8 @@ class RiderRegistration extends \yii\db\ActiveRecord
         $Documents = RidersDocument::find()->where(['RiderID'=> $rider->ID])->all();
 
         foreach ($Documents as $doc)
-            if (str_ends_with($doc->DocumentLink, '.jpg')) {
-                return Yii::$app->params['riderUrl'] . '/documents/riders/' . $doc->DocumentLink;
+            if ($doc->ID == 1) {
+                return Html::img('@web/documents/riders/' . $doc->DocumentLink,['class'=>'img-profile rounded-circle']);
             }
             return '';
     }

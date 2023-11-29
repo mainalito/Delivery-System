@@ -16,7 +16,7 @@ $this->title = $model->FirstName;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <!-- <p>-->
-    <?= Html::a('Update', ['update', 'UserID' => isCurrentUser()], ['class' => 'btn btn-primary mb-2']) ?>
+    <?= Html::a('Update', ['update', 'UserID' => isCurrentUser()], ['class' => 'btn btn-primary mb-2 float-right']) ?>
     <!--        --><?php //= Html::a('Delete', ['delete', 'ID' => $model->ID], [
                     //            'class' => 'btn btn-danger',
                     //            'data' => [
@@ -66,6 +66,7 @@ $this->title = $model->FirstName;
                     <tr>
                         <th>Document Name</th>
                         <th>Documents</th>
+                    
                     </tr>
                 </thead>
                 <tbody>
@@ -81,15 +82,19 @@ $this->title = $model->FirstName;
                             <td><?= Html::encode($docName) ?></td>
                             <td>
                                 <?php foreach ($docs as $doc) : ?>
-                                    <?php if (str_ends_with($doc->DocumentLink, '.jpg')) : ?>
-                                        <img class='w-25 h-25 mr-2' src="<?= RiderRegistration::getUserImage(Yii::$app->user->id) ?>" alt="">
+                                    <?php if ($doc->ID == 1) : ?>
+                                        <?php echo Html::img('@web/documents/riders/' . $doc->DocumentLink,['class'=>'img-profile rounded-circle']) ?>
+
+
                                     <?php else : ?>
                                         <?= Html::a('View Document', ['view-attachments', 'ref' => $doc->ID], ['target' => '_blank', 'class' => 'mr-2']) ?>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </td>
+                        
                         </tr>
                     <?php endforeach; ?>
+                    
                 </tbody>
             </table>
         </div>
