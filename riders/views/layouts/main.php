@@ -111,7 +111,10 @@ AppAsset::register($this);
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     <?php echo Yii::$app->user->identity->username ?>
                                 </span>
+<<<<<<< HEAD
                                 <?= RiderRegistration::getUserImage(isCurrentUser()) ?>
+=======
+>>>>>>> 1eb34ad14a5f3b24224d95c4ed52e6630d3c0a97
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -28,7 +28,7 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
 
 
-<div class="container fluid">
+<div class="container-fluid">
     <div class="row">
         <!-- Left Column -->
         <div class="col-md-8">
@@ -122,6 +122,7 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
             <?php
             if ($order->status == Orders::STATUS_PAID && $order->RiderConfirmation != 1) :
             ?>
+<<<<<<< HEAD
                 <!-- Assign Rider -->
                 <div class="card">
                     <div class="card-header bg-warning text-dark">Acknowledge Delivery</div>
@@ -138,6 +139,22 @@ $customerAddress = $model->Address . ", " . \frontend\models\Counties::findOne($
                             ]); ?>
                         </div>
                         <?php ActiveForm::end(); ?>
+=======
+            <!-- Assign Rider -->
+            <div class="card">
+                <div class="card-header bg-warning text-dark">Acknowledge Delivery</div>
+                <div class="card-body">
+                    <?php $form = ActiveForm::begin(); ?>
+                    <?= $form->field($order, 'RiderConfirmation')->dropDownList(ArrayHelper::map(ConfirmationStatus::find()->all(), 'ID', 'Status'), ['prompt' => 'Select Confirmation Status'])->label(false) ?>
+                    <div class="form-group">
+                        <?= Html::submitButton("Submit", [
+                            'class' => 'btn btn-primary btn-block',
+                            'data' => [
+                                'confirm' => 'Are you are sure you want to proceed with the delivery?',
+                                'method' => 'post',
+                            ]
+                        ]); ?>
+>>>>>>> 1eb34ad14a5f3b24224d95c4ed52e6630d3c0a97
                     </div>
                 </div>
             <?php else : ?>

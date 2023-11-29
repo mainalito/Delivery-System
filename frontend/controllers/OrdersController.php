@@ -97,7 +97,7 @@ class OrdersController extends Controller
         }
         $numberOfProducts = count($products);
         $totalCost = 0;
-        foreach($products as $product){
+        foreach ($products as $product) {
             $amount = $product->price;
             $totalCost += $amount;
         }
@@ -109,6 +109,22 @@ class OrdersController extends Controller
             'totalCost' => $totalCost,
             'riderInformation' => $riderInformation
         ]);
+    }
+
+    public function actionViewDeliveryDetails($id)
+    {
+        $id = base64_decode($id);
+        $model = $this->findModel($id);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view-delivery-details', [
+                'model' => $model
+            ]);
+        } else{
+            return $this->render('view-delivery-details', [
+                'model' => $model
+            ]);
+        }
+        
     }
 
     /**
