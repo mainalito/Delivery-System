@@ -2,6 +2,7 @@
 
 namespace riders\controllers;
 
+use backend\controllers\RidersController;
 use backend\models\Documents;
 use common\models\User;
 use Exception;
@@ -113,26 +114,66 @@ class RiderRegistrationController extends BaseController
 
         $model = new RiderRegistration();
         $documentTypes = Documents::find()->all();
-
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                // VarDumper::dump(UploadedFile::getInstances($model, 'Uploadfiles'),10,true);exit;
 
-                $model->Uploadfiles = UploadedFile::getInstances($model, 'Uploadfiles');
-                $model->Uploadfile = UploadedFile::getInstance($model, "Uploadfile[$model->documentType]");
+                if ($model->save()) {
+                    foreach ($documentTypes as $docType) {
+                        if ($docType->Multiple) {
+                            // Handle multiple file uploads
+                            $uploadedFiles = UploadedFile::getInstances($model, "Uploadfiles[{$docType->ID}]");
+                            foreach ($uploadedFiles as $file) {
+                                if ($file) {
+                                    $document  = RidersDocument::find()->where(["RiderID" => $model->ID, 'DocumentTypeID' => $docType->ID])->one();
+                                    if (!$document) {
+                                        $document = new RidersDocument();
+                                        $document->DocumentTypeID = $docType->ID;
+                                        $document->RiderID = $model->ID;
+                                    }
 
-                if ($model->validate() && $model->save()) {
-                    if ($model->Uploadfile) {
-                        $document = new RidersDocument();
-                        $document->DocumentTypeID = $model->documentType;
-                        $document->RiderID = $model->ID;
-                        $document->DocumentLink = $this->uploadDocument('riders', $model->Uploadfile);
+                                    $document->DocumentLink = $this->uploadDocument('riders', $file);
+                                    if (!$document->save()) {
+                                        VarDumper::dump($document->getErrors(), 10, true);
+                                        var_dump('first');
+                                        exit;
+                                    }
+                                }
+                            }
+                        } else {
+                            // Handle single file upload
+                            $uploadedFile = UploadedFile::getInstance($model, "Uploadfile[{$docType->ID}]");
+
+                            if ($uploadedFile) {
+                                $document  = RidersDocument::find()->where(["RiderID" => $model->ID, 'DocumentTypeID' => $docType->ID])->one();
+                                if (!$document) {
+                                    $document = new RidersDocument();
+                                    $document->DocumentTypeID = $docType->ID;
+                                    $document->RiderID = $model->ID;
+                                }
+
+                                $document->DocumentLink = $this->uploadDocument('riders', $uploadedFile);
+                                if (!$document->save()) {
+                                    VarDumper::dump($document->getErrors(), 10, true);
+                                    exit;
+                                }
+                            }
+                        }
                     }
-                    Yii::$app->session->setFlash(' success', ' Details have been successfully submitted for review.');
-                    return $this->redirect(['/']);
+                   //TODO: send email to the created user with necessary information and also send email in the backend for admin 
+
+
+                    Yii::$app->session->setFlash('success', 'Your Details were updated successfully');
+                    return $this->redirect(['site/login']);
                 }
+                VarDumper::dump($model->getErrors());
+                exit;
+
+                Yii::$app->session->setFlash('error', 'Failed to update your details');
             }
-        } else {
+        }
+
+         else {
             $model->loadDefaultValues();
         }
 

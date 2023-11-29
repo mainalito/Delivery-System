@@ -47,7 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     } elseif ($model->Status == 2) {
                         return Html::tag('span', @$model->status->Status, ['class' => 'badge badge-danger']);
                     }
-                    return @$model->status->Status;
+                    else{
+                        return Html::tag('span', 'New', ['class' => 'badge badge-primary']);
+
+                    }
+                  
                 },
                 'filter' => ArrayHelper::map(Status::find()->all(),'ID','Status')
             ],

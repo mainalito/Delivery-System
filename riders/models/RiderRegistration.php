@@ -120,7 +120,7 @@ class RiderRegistration extends \yii\db\ActiveRecord
         $Documents = RidersDocument::find()->where(['RiderID'=> $rider->ID])->all();
 
         foreach ($Documents as $doc)
-            if ($doc->ID == 1) {
+            if ($doc->DocumentTypeID == 1) {
                 return Html::img('@web/documents/riders/' . $doc->DocumentLink,['class'=>'img-profile rounded-circle']);
             }
             return '';

@@ -82,12 +82,13 @@ $this->title = $model->FirstName;
                             <td><?= Html::encode($docName) ?></td>
                             <td>
                                 <?php foreach ($docs as $doc) : ?>
-                                    <?php if ($doc->ID == 1) : ?>
+                                    <?php if ($doc->DocumentTypeID == 1) : ?>
                                         <?php echo Html::img('@web/documents/riders/' . $doc->DocumentLink,['class'=>'img-profile rounded-circle']) ?>
-
 
                                     <?php else : ?>
                                         <?= Html::a('View Document', ['view-attachments', 'ref' => $doc->ID], ['target' => '_blank', 'class' => 'mr-2']) ?>
+                                       <?= $doc->ID?> 
+
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </td>

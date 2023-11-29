@@ -4,7 +4,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\User $user */
 
-$verifyLink = Yii::$app->params['backendUrl'].'login';
+$verifyLink = Yii::$app->params['riderUrl'].'site/login';
 ?>
 <div class="verify-email" style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #333;">
     <h2 style="color: #0056b3;">Email Verification</h2>

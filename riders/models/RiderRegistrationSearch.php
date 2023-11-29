@@ -40,7 +40,7 @@ class RiderRegistrationSearch extends RiderRegistration
      */
     public function search($params)
     {
-        $query = RiderRegistration::find();
+        $query = RiderRegistration::find()->orderBy(['ID'=>SORT_DESC]);
 
         // add conditions that should always apply here
 
