@@ -1,11 +1,14 @@
 <?php
 
+use borales\extensions\phoneInput\PhoneInput;
 use common\models\User;
 use kartik\file\FileInput;
+use kartik\select2\Select2;
 use riders\assets\AppAsset;
 use riders\models\Vehicle;
 use yidas\yii\fontawesome\FontawesomeAsset;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -30,8 +33,22 @@ AppAsset::register($this);
         <div class="card-body">
             <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <?= $form->field($user, 'username')->textInput(['maxlength' => true]) ?>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <?= $form->field($user, 'old_password')->passwordInput() ?>
+
+                </div>
+                <div class="col-md-4">
+                    <?= $form->field($user, 'new_password')->passwordInput() ?>
+
+                </div>
+                <div class="col-md-4">
+                    <?= $form->field($user, 'repeat_password')->passwordInput() ?>
 
                 </div>
             </div>
@@ -53,13 +70,13 @@ AppAsset::register($this);
                         //                'template' => '{label}<div class="input-group"><div class="input-group-prepend">
                         //                            <span class="input-group-text"><i class="fas fa-check-circle"></i></span>
                         //                          </div>{input}{hint}{error}</div>'
-                    ])->widget(\kartik\select2\Select2::className(), [
-                        'data' => \yii\helpers\ArrayHelper::map(Vehicle::find()->all(), 'ID', 'Type'),
+                    ])->widget(Select2::class, [
+                        'data' => ArrayHelper::map(Vehicle::find()->all(), 'ID', 'Type'),
                         'language' => 'en',
                         'options' => [
                             'placeholder' => 'Select Vehicle',
                             'id' => 'approve-status',
-                            'size' => \kartik\select2\Select2::SMALL,
+                            'size' => Select2::SMALL,
                             'multiple' => false,
                             'required' => true,
                             'disabled' => true,
@@ -79,7 +96,7 @@ AppAsset::register($this);
 
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'PhoneNumber')->widget(\borales\extensions\phoneInput\PhoneInput::className(), [
+                    <?= $form->field($model, 'PhoneNumber')->widget(PhoneInput::class, [
                         'jsOptions' => [
                             'preferredCountries' => ['ug', 'ke', 'rw'],
                         ]
@@ -96,7 +113,7 @@ AppAsset::register($this);
 
                         $attribute = $docType->Multiple ? 'Uploadfiles[' . $docType->ID . '][]' : 'Uploadfile[' . $docType->ID . ']';
                         $multiple = $docType->Multiple ? true : false; // Can be just (bool)$docType->Multiple
-                        $options = ['multiple' => $multiple,'accept'=>$mimeTypesString];
+                        $options = ['multiple' => $multiple, 'accept' => $mimeTypesString];
                         $pluginOptions = [
                             'showUpload' => false,
                             'showPreview' => false,

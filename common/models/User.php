@@ -30,6 +30,10 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+
+    public $new_password;
+    public $repeat_password;
+    public $old_password;
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
@@ -50,7 +54,6 @@ class User extends ActiveRecord implements IdentityInterface
         } elseif ($applicationType === 'frontend') {
             return static::findOne(['username' => $username, 'usertypeid' => SignupForm::STATUS_USER]);
         }
-
     }
 
 
@@ -70,10 +73,32 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['new_password', 'repeat_password', 'old_password'], 'required', 'message' => 'This field cannot be blank.'],
+
+            ['new_password', 'string', 'min' => 6],
+            ['old_password', 'validateOldPassword'],
+
+
+            ['new_password', 'match', 'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{6,}$/
+            ',
+             'message' => 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.'],
+            ['repeat_password', 'compare', 'compareAttribute' => 'new_password', 'message' => "Passwords don't match"],
+
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }
+    public function validateOldPassword($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->findByUsername(Yii::$app->user->identity->username);
+
+            if (!$user || !Yii::$app->getSecurity()->validatePassword($this->$attribute, $user->password_hash)) {
+                $this->addError($attribute, 'Incorrect old password.');
+            }
+        }
+    }
+
 
     /**
      * {@inheritdoc}
@@ -126,7 +151,8 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token verify email token
      * @return static|null
      */
-    public static function findByVerificationToken($token) {
+    public static function findByVerificationToken($token)
+    {
         return static::findOne([
             'verification_token' => $token,
             'status' => self::STATUS_INACTIVE

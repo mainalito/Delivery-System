@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var riders\models\RiderRegistration $model */
 
-$this->title = $model->FirstName;
+$this->title = ucfirst($model->FirstName);
 
 \yii\web\YiiAsset::register($this);
 ?>
@@ -33,7 +33,7 @@ $this->title = $model->FirstName;
             'IdentificationNumber',
             [
                 'label' => 'Rider Full Name', 'value' => fn () =>
-                $model->FirstName . ' ' . $model->LastName
+                ucfirst($model->FirstName) . ' ' . ucfirst($model->LastName)
             ],
             [
                 'label' => 'Vehicle', 'value' => fn () => $model->vehicle->Type,
@@ -87,7 +87,7 @@ $this->title = $model->FirstName;
 
                                     <?php else : ?>
                                         <?= Html::a('View Document', ['view-attachments', 'ref' => $doc->ID], ['target' => '_blank', 'class' => 'mr-2']) ?>
-                                       <?= $doc->ID?> 
+                                       
 
                                     <?php endif; ?>
                                 <?php endforeach; ?>

@@ -76,7 +76,7 @@ class RiderRegistrationController extends BaseController
         ]);
     }
 
-   
+
 
     /**
      * Displays a single RiderRegistration model.
@@ -160,7 +160,7 @@ class RiderRegistrationController extends BaseController
                             }
                         }
                     }
-                   //TODO: send email to the created user with necessary information and also send email in the backend for admin 
+                    //TODO: send email to the created user with necessary information and also send email in the backend for admin 
 
 
                     Yii::$app->session->setFlash('success', 'Your Details were updated successfully');
@@ -171,9 +171,7 @@ class RiderRegistrationController extends BaseController
 
                 Yii::$app->session->setFlash('error', 'Failed to update your details');
             }
-        }
-
-         else {
+        } else {
             $model->loadDefaultValues();
         }
 
@@ -213,20 +211,42 @@ class RiderRegistrationController extends BaseController
         $model = $this->findUser($UserID);
         $user = User::find()->where(['id' => $UserID])->one();
 
-        if(isCurrentUser() != $user->id) throw new ForbiddenHttpException('You are not allowed to perform such action');
+        if (isCurrentUser() != $user->id) throw new ForbiddenHttpException('You are not allowed to perform such action');
         $documentTypes = Documents::find()->all();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $user->load($this->request->post())) {
                 // VarDumper::dump(UploadedFile::getInstances($model, 'Uploadfiles'),10,true);exit;
+                if ($model->validate() && $user->validate()) {
+                    $user->setPassword($user->new_password); // Set the new password
 
-                if ($model->save() && $user->save()) {
-                    foreach ($documentTypes as $docType) {
-                        if ($docType->Multiple) {
-                            // Handle multiple file uploads
-                            $uploadedFiles = UploadedFile::getInstances($model, "Uploadfiles[{$docType->ID}]");
-                            foreach ($uploadedFiles as $file) {
-                                if ($file) {
+                    if ($model->save() && $user->save()) {
+                        foreach ($documentTypes as $docType) {
+                            if ($docType->Multiple) {
+                                // Handle multiple file uploads
+                                $uploadedFiles = UploadedFile::getInstances($model, "Uploadfiles[{$docType->ID}]");
+                                foreach ($uploadedFiles as $file) {
+                                    if ($file) {
+                                        $document  = RidersDocument::find()->where(["RiderID" => $model->ID, 'DocumentTypeID' => $docType->ID])->one();
+                                        if (!$document) {
+                                            $document = new RidersDocument();
+                                            $document->DocumentTypeID = $docType->ID;
+                                            $document->RiderID = $model->ID;
+                                        }
+
+                                        $document->DocumentLink = $this->uploadDocument('riders', $file);
+                                        if (!$document->save()) {
+                                            VarDumper::dump($document->getErrors(), 10, true);
+                                            var_dump('first');
+                                            exit;
+                                        }
+                                    }
+                                }
+                            } else {
+                                // Handle single file upload
+                                $uploadedFile = UploadedFile::getInstance($model, "Uploadfile[{$docType->ID}]");
+
+                                if ($uploadedFile) {
                                     $document  = RidersDocument::find()->where(["RiderID" => $model->ID, 'DocumentTypeID' => $docType->ID])->one();
                                     if (!$document) {
                                         $document = new RidersDocument();
@@ -234,42 +254,21 @@ class RiderRegistrationController extends BaseController
                                         $document->RiderID = $model->ID;
                                     }
 
-                                    $document->DocumentLink = $this->uploadDocument('riders', $file);
+                                    $document->DocumentLink = $this->uploadDocument('riders', $uploadedFile);
                                     if (!$document->save()) {
-                                        VarDumper::dump($document->getErrors(), 10, true);
-                                        var_dump('first');
+                                        VarDumper::dump([$document->getErrors(),1], 10, true);
                                         exit;
                                     }
                                 }
                             }
-                        } else {
-                            // Handle single file upload
-                            $uploadedFile = UploadedFile::getInstance($model, "Uploadfile[{$docType->ID}]");
-
-                            if ($uploadedFile) {
-                                $document  = RidersDocument::find()->where(["RiderID" => $model->ID, 'DocumentTypeID' => $docType->ID])->one();
-                                if (!$document) {
-                                    $document = new RidersDocument();
-                                    $document->DocumentTypeID = $docType->ID;
-                                    $document->RiderID = $model->ID;
-                                }
-
-                                $document->DocumentLink = $this->uploadDocument('riders', $uploadedFile);
-                                if (!$document->save()) {
-                                    VarDumper::dump($document->getErrors(), 10, true);
-                                    exit;
-                                }
-                            }
                         }
+
+
+
+                        Yii::$app->session->setFlash('success', 'Your Details and password were updated successfully');
+                        return $this->redirect(['view', 'ID' => $user->id]);
                     }
-
-
-
-                    Yii::$app->session->setFlash('success', 'Your Details were updated successfully');
-                    return $this->redirect(['view', 'ID' => $user->id]);
                 }
-                VarDumper::dump($model->getErrors());
-                exit;
 
                 Yii::$app->session->setFlash('error', 'Failed to update your details');
             }
